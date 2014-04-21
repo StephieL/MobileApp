@@ -1,0 +1,140 @@
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:shrinkColumns="0"
+    android:stretchColumns="0"
+    tools:context="com.example.aufgabe1_2.MainActivity"
+    tools:ignore="MergeRootFrame" >
+    
+       <TableRow
+           android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+         	<TextView
+         	    android:layout_width="0dip"
+         	    android:layout_height="match_parent"
+         	    android:gravity="center"
+         	    android:background="@color/graydark1"
+         	    android:text="Row 1"/>
+         	    
+         	   
+    
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+              <TextView
+                  android:layout_width="0dip"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:gravity="center"
+                  android:background="@color/graylight1"
+                  android:singleLine="false"
+                  android:text="Row 2 Column 1" />
+ 
+				<TextView
+				    android:layout_width="0dip"
+				    android:layout_height="match_parent"
+				    android:layout_weight="1"
+				    android:gravity="center"
+				    android:singleLine="false"
+				     android:background="@color/graylight2"
+				    android:text="Row 2 Column 2" />
+  
+				<TextView
+				    android:layout_width="0dip"
+				    android:layout_height="match_parent"
+				    android:layout_weight="1"
+				    android:gravity="center"
+				    android:singleLine="false"
+				     android:background="@color/graylight3"
+				    android:text="Row 2 Column 3" />
+     
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:orientation="horizontal" >
+
+				<TextView
+				android:layout_width="0dip"
+				android:layout_height="match_parent"
+				 android:layout_weight="1"
+				 android:gravity="center"
+				 android:singleLine="false"
+				android:background="@color/graydark1"
+				android:text="Row 3 Column 1"/>  
+				<TextView
+				android:layout_width="0dip"
+				android:layout_height="fill_parent"
+				 android:layout_weight="1"
+				 android:gravity="center"
+				 android:singleLine="false"
+				android:background="@color/graydark2"
+				android:text="Row 3 Column 2"/>	
+                 
+			</LinearLayout>
+        </TableRow>
+        <TableRow
+            
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:background="@color/graylight1"
+                  android:gravity="center"
+                  android:singleLine="false"
+                  android:text="Row 4 Column 1" />
+ 
+				<TextView
+				    android:layout_width="wrap_content"
+				    android:layout_height="match_parent"
+				    android:layout_weight="1"
+				    android:background="@color/graylight2"
+				    android:gravity="center"
+				    android:singleLine="false"
+				    android:text="Row 4 Column 2" />
+  
+				<TextView
+				    android:layout_width="wrap_content"
+				    android:layout_height="match_parent"
+				    android:layout_weight="1"
+				    android:background="@color/graylight3"
+				    android:gravity="center"
+				    android:singleLine="false"
+				    android:text="Row 4 Column 3" />
+     
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+    
+   

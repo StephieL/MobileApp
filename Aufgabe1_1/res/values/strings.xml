@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EMA Aufgabe 1.1</string>
+    <string name="name_textfield">Name Input</string>
+    <string name="send_button">Abschicken</string>
+    <string name="main_name">Bitte gib deinen Namen ein!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
