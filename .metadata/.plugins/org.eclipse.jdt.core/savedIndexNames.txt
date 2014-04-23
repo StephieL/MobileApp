@@ -1,0 +1,12 @@
+INDEX VERSION 1.126+D:\iDokumente\workspaceEMA14\MobileApp\.metadata\.plugins\org.eclipse.jdt.core
+3871394155.index
+2800185852.index
+16949141.index
+4271660020.index
+1975144203.index
+421299498.index
+381523503.index
+2445801981.index
+1980083971.index
+2774124989.index
+4010606265.index

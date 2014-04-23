@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Aufgabe1_3</string>
+    <string name="action_settings">Settings</string>
+    <string name="textRelativeL">Ein Beispiel für\n ein RelativeLayout</string>
+    <string name="logo1">Logo1</string>
+    <string name="logo2">Logo2</string>
+    <string name="logo3">Logo3</string>
+    <string name="logo4">Logo4</string>
+
+</resources>
