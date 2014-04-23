@@ -338,6 +338,15 @@ int string abc_shareactionprovider_share_with_application 0x7f0a000b
 int string action_settings 0x7f0a000f
 int string app_name 0x7f0a000d
 int string hello_world 0x7f0a000e
+int string r1 0x7f0a0010
+int string r2c1 0x7f0a0011
+int string r2c2 0x7f0a0012
+int string r2c3 0x7f0a0013
+int string r3c1 0x7f0a0014
+int string r3c2 0x7f0a0015
+int string r4c1 0x7f0a0016
+int string r4c2 0x7f0a0017
+int string r4c3 0x7f0a0018
 int style AppBaseTheme 0x7f0b0083
 int style AppTheme 0x7f0b0084
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0b0063

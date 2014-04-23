@@ -4,5 +4,15 @@
     <string name="app_name">Aufgabe1_2</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="r1">Row 1</string>
+    <string name="r2c1">Row 2 Column 1</string>
+    <string name="r2c2">Row 2 Column 2</string>
+    <string name="r2c3">Row 2 Column 3</string>
+    <string name="r3c1">Row 3 Column 1</string>
+    <string name="r3c2">Row 3 Column 2</string>
+    <string name="r4c1">Row 4 Column 1</string>
+    <string name="r4c2">Row 4 Column 2</string>
+    <string name="r4c3">Row 4 Column 3</string>
+   
 
 </resources>

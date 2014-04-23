@@ -16,14 +16,12 @@
             android:layout_weight="1">
 
          	<TextView
-         	    android:layout_width="0dip"
-         	    android:layout_height="match_parent"
-         	    android:gravity="center"
-         	    android:background="@color/graydark1"
-         	    android:text="Row 1"/>
-         	    
-         	   
-    
+         	 android:layout_width="0dip"
+         	 android:layout_height="match_parent"
+         	 android:layout_weight="1"
+         	 android:gravity="center"
+         	 android:background="@color/graydark1"
+         	 android:text="@string/r1"/>
         </TableRow>
 
         <TableRow
@@ -31,10 +29,6 @@
             android:layout_height="0dp"
             android:layout_weight="1" >
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" >
 
               <TextView
                   android:layout_width="0dip"
@@ -43,7 +37,7 @@
                   android:gravity="center"
                   android:background="@color/graylight1"
                   android:singleLine="false"
-                  android:text="Row 2 Column 1" />
+                  android:text="@string/r2c1" />
  
 				<TextView
 				    android:layout_width="0dip"
@@ -52,7 +46,7 @@
 				    android:gravity="center"
 				    android:singleLine="false"
 				     android:background="@color/graylight2"
-				    android:text="Row 2 Column 2" />
+				    android:text="@string/r2c2" />
   
 				<TextView
 				    android:layout_width="0dip"
@@ -60,21 +54,15 @@
 				    android:layout_weight="1"
 				    android:gravity="center"
 				    android:singleLine="false"
-				     android:background="@color/graylight3"
-				    android:text="Row 2 Column 3" />
+				    android:background="@color/graylight3"
+				    android:text="@string/r2c3" />
      
-            </LinearLayout>
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1" >
-
-             <LinearLayout
-                 android:layout_width="wrap_content"
-                 android:layout_height="match_parent"
-                 android:orientation="horizontal" >
 
 				<TextView
 				android:layout_width="0dip"
@@ -83,7 +71,7 @@
 				 android:gravity="center"
 				 android:singleLine="false"
 				android:background="@color/graydark1"
-				android:text="Row 3 Column 1"/>  
+				android:text="@string/r3c1"/>  
 				<TextView
 				android:layout_width="0dip"
 				android:layout_height="fill_parent"
@@ -91,20 +79,14 @@
 				 android:gravity="center"
 				 android:singleLine="false"
 				android:background="@color/graydark2"
-				android:text="Row 3 Column 2"/>	
+				android:text="@string/r3c2"/>	
                  
-			</LinearLayout>
         </TableRow>
         <TableRow
             
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" >
 
               <TextView
                   android:layout_width="wrap_content"
@@ -113,7 +95,7 @@
                   android:background="@color/graylight1"
                   android:gravity="center"
                   android:singleLine="false"
-                  android:text="Row 4 Column 1" />
+                  android:text="@string/r4c1" />
  
 				<TextView
 				    android:layout_width="wrap_content"
@@ -122,7 +104,7 @@
 				    android:background="@color/graylight2"
 				    android:gravity="center"
 				    android:singleLine="false"
-				    android:text="Row 4 Column 2" />
+				    android:text="@string/r4c2" />
   
 				<TextView
 				    android:layout_width="wrap_content"
@@ -131,9 +113,8 @@
 				    android:background="@color/graylight3"
 				    android:gravity="center"
 				    android:singleLine="false"
-				    android:text="Row 4 Column 3" />
+				    android:text="@string/r4c3"/>
      
-            </LinearLayout>
         </TableRow>
     </TableLayout>
     
