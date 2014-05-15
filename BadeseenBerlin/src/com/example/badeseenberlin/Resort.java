@@ -3,6 +3,8 @@ package com.example.badeseenberlin;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import com.google.android.gms.maps.model.LatLng;
+
 
 public class Resort {
 	private int id;
@@ -16,7 +18,7 @@ public class Resort {
 	private String profil;
 	private String profilLink;
 	private String rssName;
-	private List<Float> coordinates;
+	private LatLng coordinates;
 	private HashMap<String, String> currentResort = new HashMap<String, String>();
 	
 	public Resort(int id, String webLink, String name, String location,

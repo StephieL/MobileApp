@@ -183,7 +183,6 @@ public class MainActivity extends ListActivity {
 //                    resort.put(LOCATION, location);
 //                    resortList.add(resort);
 //	                System.out.println("Liste: "+resortList);
-	                
 	                ListView listView = (ListView) findViewById(android.R.id.list);
 	                SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, resortList, R.layout.list_item, new String[] { NAME, LOCATION}, new int[] { R.id.resortName,R.id.resortLocation });
 	 
