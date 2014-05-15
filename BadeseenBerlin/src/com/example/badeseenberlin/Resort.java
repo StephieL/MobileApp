@@ -34,9 +34,10 @@ public class Resort {
 		this.profil = profil;
 		this.profilLink = profilLink;
 		this.rssName = rssName;
+		System.out.println("Resort angelegt");
 	}
 	
-	public HashMap<String, String> getCurrentResortAsHM(){
+	public HashMap<String, String> getResortAsHM(){
 		currentResort.put(MainActivity.ID, Integer.toString(id));
 		currentResort.put(MainActivity.NAME, name);
 		currentResort.put(MainActivity.LINK, webLink);
