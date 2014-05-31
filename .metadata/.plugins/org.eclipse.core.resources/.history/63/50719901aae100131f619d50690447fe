@@ -1,0 +1,8 @@
+package com.example.badeseenberlin;
+
+import android.app.ActionBar;
+import android.app.Fragment;
+
+public class TabListener<T extends Fragment> implements ActionBar.TabListener {
+
+}

@@ -1,0 +1,7 @@
+package com.example.badeseenberlin;
+
+import android.app.Fragment;
+
+public class ListFragment extends Fragment {
+
+}

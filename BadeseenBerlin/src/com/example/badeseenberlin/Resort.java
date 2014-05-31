@@ -19,11 +19,11 @@ public class Resort {
 	private String profilLink;
 	private String rssName;
 	private LatLng coordinates;
-	private HashMap<String, String> currentResort = new HashMap<String, String>();
+	private HashMap<String, Object> currentResort = new HashMap();
 	
 	public Resort(int id, String webLink, String name, String location,
 			Date sampleTaking, String eco, String ente, String visibilityRange,
-			String profil, String profilLink, String rssName) {
+			String profil, String profilLink, String rssName, LatLng coords) {
 		super();
 		this.id = id;
 		this.webLink = webLink;
@@ -36,22 +36,23 @@ public class Resort {
 		this.profil = profil;
 		this.profilLink = profilLink;
 		this.rssName = rssName;
-		System.out.println("Resort angelegt");
+		this.coordinates = coords;
 	}
 	
-	public HashMap<String, String> getResortAsHM(){
-		currentResort.put(MainActivity.ID, Integer.toString(id));
-		currentResort.put(MainActivity.NAME, name);
-		currentResort.put(MainActivity.LINK, webLink);
-		currentResort.put(MainActivity.LOCATION, location);
-		currentResort.put(MainActivity.LINK, webLink);
-		currentResort.put(MainActivity.SAMPLE_DATE, sampleTaking.toString());
-		currentResort.put(MainActivity.ECO, eco);
-		currentResort.put(MainActivity.ENTE, ente);
-		currentResort.put(MainActivity.VISIBILITY_RANGE, visibilityRange);
-		currentResort.put(MainActivity.PROFILE, profil);
-		currentResort.put(MainActivity.PROFILE_LINK, profilLink);
-		currentResort.put(MainActivity.RSS, rssName);
+	public HashMap<String, Object> getResortAsHM(){
+		currentResort.put(JSONHandler.ID, id);
+		currentResort.put(JSONHandler.NAME, name);
+		currentResort.put(JSONHandler.LINK, webLink);
+		currentResort.put(JSONHandler.LOCATION, location);
+		currentResort.put(JSONHandler.LINK, webLink);
+		currentResort.put(JSONHandler.SAMPLE_DATE, sampleTaking);
+		currentResort.put(JSONHandler.ECO, eco);
+		currentResort.put(JSONHandler.ENTE, ente);
+		currentResort.put(JSONHandler.VISIBILITY_RANGE, visibilityRange);
+		currentResort.put(JSONHandler.PROFILE, profil);
+		currentResort.put(JSONHandler.PROFILE_LINK, profilLink);
+		currentResort.put(JSONHandler.RSS, rssName);
+		currentResort.put(JSONHandler.COORDS, coordinates);
 		return currentResort;
 	}
 	
