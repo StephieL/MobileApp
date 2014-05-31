@@ -13,13 +13,15 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsOverviewFragment extends Fragment {
 
 	private GoogleMap map;
-	private LatLng test = new LatLng(53.558, 9.927);
+	private LatLng berlinCoords = new LatLng(52.5234051, 13.4113999);
 	private View view=null;
 	
 	@Override
@@ -60,12 +62,34 @@ public class MapsOverviewFragment extends Fragment {
            
         	 map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         	
+        	 for(Resort resort:MainActivity.resortlist){
+        		 MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
+        		 
+        		 switch(resort.getColor()){
+					case "gruen.jpg":
+						 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+						break;
+					case "gelb.jpg":
+						 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+						break;
+					case "rot.jpg":
+						 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+						break;
+					case "gruen_a.jpg":
+						 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+						break;
+					}
+        		 
+        		 map.addMarker(marker);
+        	 }
         	 
-        	 MarkerOptions marker = new MarkerOptions().position(test);
-        	 map.addMarker(marker);
-//    		Marker hamburg = map.addMarker(new MarkerOptions().position(test).title("Hamburg"));
-//    		
-    		map.moveCamera(CameraUpdateFactory.newLatLngZoom(test, 10));
+        	 
+        	 
+        	 
+        	 
+    		Marker berlinMarker = map.addMarker(new MarkerOptions().position(berlinCoords).title("Berlin"));
+    		
+    		map.moveCamera(CameraUpdateFactory.newLatLngZoom(berlinCoords, 8));
 //            map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 //            
            

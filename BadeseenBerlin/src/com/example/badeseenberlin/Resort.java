@@ -3,6 +3,11 @@ package com.example.badeseenberlin;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.v4.os.ParcelableCompat;
+
 import com.google.android.gms.maps.model.LatLng;
 
 
@@ -19,11 +24,12 @@ public class Resort {
 	private String profilLink;
 	private String rssName;
 	private LatLng coordinates;
+	private String color;
 	private HashMap<String, Object> currentResort = new HashMap();
 	
 	public Resort(int id, String webLink, String name, String location,
 			Date sampleTaking, String eco, String ente, String visibilityRange,
-			String profil, String profilLink, String rssName, LatLng coords) {
+			String profil, String profilLink, String rssName, LatLng coords, String color) {
 		super();
 		this.id = id;
 		this.webLink = webLink;
@@ -37,6 +43,7 @@ public class Resort {
 		this.profilLink = profilLink;
 		this.rssName = rssName;
 		this.coordinates = coords;
+		this.color = color;
 	}
 	
 	public HashMap<String, Object> getResortAsHM(){
@@ -55,5 +62,27 @@ public class Resort {
 		currentResort.put(JSONHandler.COORDS, coordinates);
 		return currentResort;
 	}
+
+	public LatLng getCoordinates() {
+		return coordinates;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public String getVisibilityRange() {
+		return visibilityRange;
+	}
+
+	
 	
 }

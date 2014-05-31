@@ -133,10 +133,10 @@ public class GetResortData extends AsyncTask<Void, Void, JSONArray> {
             	float lng = Float.parseFloat(coordsArray[1]);
             	LatLng coordinates = new LatLng(lat, lng);
             	
-            	Resort resort = new Resort(id, webLink, name, location, sampleTaking, eco, ente, visibilityRange, profil, profilLink, rssName, coordinates);
+//            	Resort resort = new Resort(id, webLink, name, location, sampleTaking, eco, ente, visibilityRange, profil, profilLink, rssName, coordinates);
                 
-                resortListHM.add(resort.getResortAsHM()); 
-            	resortlist.add(resort);
+//                resortListHM.add(resort.getResortAsHM()); 
+//            	resortlist.add(resort);
 
             }
             isTaskfinished=true;
