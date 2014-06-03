@@ -10,19 +10,19 @@
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-feature 
-        android:glEsVersion="0x00020000"
-        android:required="true"/>
-    "
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    "
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name" >
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -32,18 +32,21 @@
 
         <activity
             android:name="com.example.badeseenberlin.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Single List Item Activity -->
         <activity
-            android:name="com.example.badeseenberlin.DetailActivity"
+            android:name="com.example.badeseenberlin.DetailFragment"
             android:label="@string/title_activity_detail" >
+        </activity>
+        <activity
+            android:name="com.example.badeseenberlin.AppActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 

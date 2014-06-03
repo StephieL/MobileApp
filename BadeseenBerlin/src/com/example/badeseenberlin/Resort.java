@@ -1,35 +1,40 @@
 package com.example.badeseenberlin;
 
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.v4.os.ParcelableCompat;
-
+import java.util.Locale;
 import com.google.android.gms.maps.model.LatLng;
 
 
-public class Resort {
+public class Resort implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String webLink;
 	private String name;
 	private String location;
-	private Date sampleTaking;
+	private String sampleTaking;
 	private String eco;
 	private String ente;
 	private String visibilityRange;
 	private String profil;
 	private String profilLink;
 	private String rssName;
+	private float lat;
+	private float lng;
 	private LatLng coordinates;
 	private String color;
-	private HashMap<String, Object> currentResort = new HashMap();
+	private HashMap<String, Object> currentResort = new HashMap<String, Object>();
 	
 	public Resort(int id, String webLink, String name, String location,
-			Date sampleTaking, String eco, String ente, String visibilityRange,
-			String profil, String profilLink, String rssName, LatLng coords, String color) {
+			String sampleTaking, String eco, String ente, String visibilityRange,
+			String profil, String profilLink, String rssName, float lat, float lng, String color) {
 		super();
 		this.id = id;
 		this.webLink = webLink;
@@ -42,28 +47,30 @@ public class Resort {
 		this.profil = profil;
 		this.profilLink = profilLink;
 		this.rssName = rssName;
-		this.coordinates = coords;
+		this.lat=lat;
+		this.lng=lng;
 		this.color = color;
 	}
-	
+
 	public HashMap<String, Object> getResortAsHM(){
-		currentResort.put(JSONHandler.ID, id);
-		currentResort.put(JSONHandler.NAME, name);
-		currentResort.put(JSONHandler.LINK, webLink);
-		currentResort.put(JSONHandler.LOCATION, location);
-		currentResort.put(JSONHandler.LINK, webLink);
-		currentResort.put(JSONHandler.SAMPLE_DATE, sampleTaking);
-		currentResort.put(JSONHandler.ECO, eco);
-		currentResort.put(JSONHandler.ENTE, ente);
-		currentResort.put(JSONHandler.VISIBILITY_RANGE, visibilityRange);
-		currentResort.put(JSONHandler.PROFILE, profil);
-		currentResort.put(JSONHandler.PROFILE_LINK, profilLink);
-		currentResort.put(JSONHandler.RSS, rssName);
-		currentResort.put(JSONHandler.COORDS, coordinates);
+		currentResort.put(Constants.ID, id);
+		currentResort.put(Constants.NAME, name);
+		currentResort.put(Constants.LINK, webLink);
+		currentResort.put(Constants.LOCATION, location);
+		currentResort.put(Constants.LINK, webLink);
+		currentResort.put(Constants.SAMPLE_DATE, sampleTaking);
+		currentResort.put(Constants.ECO, eco);
+		currentResort.put(Constants.ENTE, ente);
+		currentResort.put(Constants.VISIBILITY_RANGE, visibilityRange);
+		currentResort.put(Constants.PROFILE, profil);
+		currentResort.put(Constants.PROFILE_LINK, profilLink);
+		currentResort.put(Constants.RSS, rssName);
+		currentResort.put(Constants.COORDS, coordinates);
 		return currentResort;
 	}
 
 	public LatLng getCoordinates() {
+		this.coordinates = new LatLng(lat, lng);
 		return coordinates;
 	}
 
@@ -82,7 +89,16 @@ public class Resort {
 	public String getVisibilityRange() {
 		return visibilityRange;
 	}
-
 	
-	
+	public Date getSampleTaking() {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
+		Date date = null;
+		try {
+			date = df.parse(sampleTaking);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date;
+	}
 }
