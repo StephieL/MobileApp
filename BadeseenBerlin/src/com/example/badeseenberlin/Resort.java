@@ -7,9 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+
+import android.annotation.SuppressLint;
+
 import com.google.android.gms.maps.model.LatLng;
 
 
+@SuppressLint("SimpleDateFormat")
 public class Resort implements Serializable{
 	/**
 	 * 
@@ -28,13 +32,13 @@ public class Resort implements Serializable{
 	private String rssName;
 	private float lat;
 	private float lng;
-	private LatLng coordinates;
+	private String coordinates;
 	private String color;
 	private HashMap<String, Object> currentResort = new HashMap<String, Object>();
 	
 	public Resort(int id, String webLink, String name, String location,
 			String sampleTaking, String eco, String ente, String visibilityRange,
-			String profil, String profilLink, String rssName, float lat, float lng, String color) {
+			String profil, String profilLink, String rssName, String coordinates, String color) {
 		super();
 		this.id = id;
 		this.webLink = webLink;
@@ -47,31 +51,28 @@ public class Resort implements Serializable{
 		this.profil = profil;
 		this.profilLink = profilLink;
 		this.rssName = rssName;
-		this.lat=lat;
-		this.lng=lng;
+		this.coordinates = coordinates;
 		this.color = color;
 	}
 
+	public String getWebLink() {
+		return webLink;
+	}
+
 	public HashMap<String, Object> getResortAsHM(){
-		currentResort.put(Constants.ID, id);
+//		currentResort.put(Constants.ID, id);
 		currentResort.put(Constants.NAME, name);
-		currentResort.put(Constants.LINK, webLink);
 		currentResort.put(Constants.LOCATION, location);
-		currentResort.put(Constants.LINK, webLink);
-		currentResort.put(Constants.SAMPLE_DATE, sampleTaking);
-		currentResort.put(Constants.ECO, eco);
-		currentResort.put(Constants.ENTE, ente);
-		currentResort.put(Constants.VISIBILITY_RANGE, visibilityRange);
-		currentResort.put(Constants.PROFILE, profil);
-		currentResort.put(Constants.PROFILE_LINK, profilLink);
-		currentResort.put(Constants.RSS, rssName);
-		currentResort.put(Constants.COORDS, coordinates);
+		currentResort.put(Constants.COLOR, color);
 		return currentResort;
 	}
 
 	public LatLng getCoordinates() {
-		this.coordinates = new LatLng(lat, lng);
-		return coordinates;
+		String[] coordsArray = coordinates.split(",", 2);
+		float lat = Float.parseFloat(coordsArray[1]);
+		float lng = Float.parseFloat(coordsArray[0]);
+		LatLng coords = new LatLng(lat, lng);
+		return coords;
 	}
 
 	public String getColor() {
@@ -89,16 +90,28 @@ public class Resort implements Serializable{
 	public String getVisibilityRange() {
 		return visibilityRange;
 	}
-	
-	public Date getSampleTaking() {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
+	public String getEco() {
+		return eco;
+	}
+
+	public String getEnte() {
+		return ente;
+	}
+
+	public String getProfil() {
+		return profil;
+	}
+	public String getSampleTaking() {
+		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat outputFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
 		Date date = null;
 		try {
-			date = df.parse(sampleTaking);
+			date = inputFormat.parse(sampleTaking);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return date;
+		String outputDateStr = outputFormat.format(date);
+		return outputDateStr;
 	}
 }

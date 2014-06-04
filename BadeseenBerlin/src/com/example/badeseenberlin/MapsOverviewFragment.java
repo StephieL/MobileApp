@@ -24,6 +24,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickListener {
 
 	private GoogleMap map;
+	public GoogleMap getMap() {
+		return map;
+	}
+
 	private LatLng berlinCoords = new LatLng(52.5234051, 13.4113999);
 	private View view=null;
 	private View infoview;
@@ -62,36 +66,34 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
         if (map == null) {
            
         	 map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-        	// Setting a custom info window adapter for the google map
-             
         	 map.setOnInfoWindowClickListener(null);
-        	 map.moveCamera(CameraUpdateFactory.newLatLngZoom(berlinCoords, 8));
+        	 zoomTo(berlinCoords, 8);
 //        	 map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         	 for(final Resort resort:AppActivity.myResorts){
-        		 MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName());
-        		 map.setInfoWindowAdapter(new InfoWindowAdapter() {
-        		      
-                     // Use default InfoWindow frame
-                     @Override
-                     public View getInfoWindow(Marker arg0) {
-                         return null;
-                     }
-          
-                     // Defines the contents of the InfoWindow
-                     @Override
-                     public View getInfoContents(Marker marker) {
-          
-                         TextView name = (TextView) infoview.findViewById(R.id.resortName);
-                         TextView location = (TextView) infoview.findViewById(R.id.resortLocation);
-          
-                         name.setText(resort.getName());
-                         location.setText("Ort:"+ resort.getLocation());
-          
-                         // Returning the view containing InfoWindow contents
-                         return infoview;
-          
-                     }
-                 });
+        		 MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
+//        		 map.setInfoWindowAdapter(new InfoWindowAdapter() {
+//        		      
+//                     // Use default InfoWindow frame
+//                     @Override
+//                     public View getInfoWindow(Marker arg0) {
+//                         return null;
+//                     }
+//          
+//                     // Defines the contents of the InfoWindow
+//                     @Override
+//                     public View getInfoContents(Marker marker) {
+//                    	 System.out.println(resort.getName());
+//                         TextView name = (TextView) infoview.findViewById(R.id.resortName);
+//                         TextView location = (TextView) infoview.findViewById(R.id.resortLocation);
+//                         	
+//                         name.setText(resort.getName());
+//                         location.setText("Ort:"+ resort.getLocation());
+//          
+//                         // Returning the view containing InfoWindow contents
+//                         return infoview;
+//          
+//                     }
+//                 });
         		 switch(resort.getColor()){
 					case "gruen.jpg":
 						 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
@@ -133,7 +135,11 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 		System.out.println("On Window Clicked");
 		DetailFragment myDetailFragment = new DetailFragment();
   	  	AppActivity main = (AppActivity) getActivity();
-  	  	main.changeFragment(myDetailFragment, this);
+  	  	main.changeFragment(myDetailFragment);
 		
+	}
+	
+	public void zoomTo(LatLng coords, int level){
+		 map.moveCamera(CameraUpdateFactory.newLatLngZoom(coords, level));
 	}
 }

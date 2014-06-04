@@ -26,48 +26,36 @@ public class AppActivity extends Activity  {
 		View v = findViewById(R.id.main_container);
 		myResorts = (ArrayList<Resort>) getIntent().getSerializableExtra(Constants.RESORTS);  
 		if(v == null){
-			//it's run on tablet
 			isSinglePane = false;
-			/*
-			 * MyListFragment and MyDetailFragment have been loaded in XML,
-			 * no need load.
-			 */
-			
+			 FragmentTransaction ft = getFragmentManager().beginTransaction();
+			 Fragment mFragment = Fragment.instantiate(this, MapsOverviewFragment.class.getName());
+			 Fragment lFragment = Fragment.instantiate(this, MyListFragment.class.getName());
+	         ft.replace(R.id.land_right, mFragment);
+	         ft.replace(R.id.land_left, lFragment);
+	         ft.commit();
 		}else{
-			//it's run on phone
-			//Load MyListFragment programmatically
 			isSinglePane = true;
-			
-			if(savedInstanceState == null){
-				//if's the first time created
-				acBar = getActionBar();
-				acBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-				acBar.setDisplayShowTitleEnabled(false);
-				tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener<MyListFragment>(AppActivity.this, "List", MyListFragment.class));
-				acBar.addTab(tabList);
-				tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener<MapsOverviewFragment>(AppActivity.this, "List", MapsOverviewFragment.class));
-				acBar.addTab(tabMap);
-			}
+			acBar = getActionBar();
+			acBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+			acBar.setDisplayShowTitleEnabled(false);
+			tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener<MyListFragment>(AppActivity.this, "List", MyListFragment.class));
+			acBar.addTab(tabList);
+			tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener<MapsOverviewFragment>(AppActivity.this, "List", MapsOverviewFragment.class));
+			acBar.addTab(tabMap);
 		}
 	
 		
 	}
 	
-	public void changeFragment(Fragment fragment, Fragment old) {
+	public void changeFragment(Fragment fragment) {
 	  FragmentTransaction ft = getFragmentManager().beginTransaction();
 	  if (isSinglePane){
-		  ft.remove(old);
-	  ft.replace(R.id.main_container, fragment);
-	  
-	  ft.addToBackStack(null);
-	  ft.commit();
-	  
-	  // this might be necessary
-	  if (acBar != null)
-		  acBar.selectTab(tabList);
+		  ft.replace(R.id.main_container, fragment);
+		  ft.addToBackStack(null);
+		  ft.commit();
 	  }else{
-		  ft.replace(R.id.map_fragment, fragment);
-//		  ft.addToBackStack(null);
+		  ft.replace(R.id.land_right, fragment);
+		  ft.addToBackStack(null);
 		  ft.commit(); 
 	  }
 	  

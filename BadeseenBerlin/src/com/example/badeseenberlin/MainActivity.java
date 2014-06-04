@@ -98,7 +98,9 @@ public class MainActivity extends ActionBarActivity {
 				if (resorts!=null){
 					for (int i = 0; i < resorts.length(); i++) {
 						JSONObject c = resorts.getJSONObject(i);
-						//                     
+						//
+						
+					
 						String idText=c.getString(Constants.ID);
 						String webLink=c.getString(Constants.LINK);
 						String name=c.getString(Constants.NAME);
@@ -119,7 +121,7 @@ public class MainActivity extends ActionBarActivity {
 						float lng = Float.parseFloat(coordsArray[0]);
 						
 
-						Resort resort = new Resort(id, webLink, name, location, date, eco, ente, visibilityRange, profil, profilLink, rssName, lat, lng, color);
+						Resort resort = new Resort(id, webLink, name, location, date, eco, ente, visibilityRange, profil, profilLink, rssName, coords, color);
 
 //						resortListHM.add(resort.getResortAsHM()); 
 						resortlist.add(resort);
@@ -145,5 +147,21 @@ public class MainActivity extends ActionBarActivity {
 			
 		}
 	}
+	
+//	private String checkString(JSONObject c, String text){
+//		String checkedString="";
+//		try {
+//			if (c.getString(Constants.ID).equals("")){
+//				checkedString="keine Angabe";
+//			}else{
+//				checkedString=c.getString(Constants.ID);
+//			}
+//				
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return checkedString;
+//	}
 
 }
