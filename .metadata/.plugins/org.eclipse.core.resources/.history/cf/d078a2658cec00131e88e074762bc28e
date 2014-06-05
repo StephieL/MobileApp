@@ -1,0 +1,109 @@
+package com.example.badeseenberlin;
+
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import android.annotation.SuppressLint;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+@SuppressLint("NewApi")
+public class DetailFragment extends Fragment {
+
+	GoogleMap map;
+	TextView nameDetail;
+	TextView locationDetail;
+	TextView profilDetail;
+	TextView ecoliDetail;
+	TextView enteDetail;
+	TextView dateDetail;
+	TextView visibilityDetail;
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		Bundle bundle = getArguments();
+		Resort resort = (Resort) bundle.get(Constants.KEY);
+		View view = inflater.inflate(R.layout.fragment_detail, container, null);
+		nameDetail = (TextView)view.findViewById(R.id.name_detail);
+		nameDetail.setText(resort.getName());
+		locationDetail = (TextView)view.findViewById(R.id.location_detail);
+		locationDetail.setText("Bezirk: "+resort.getLocation());
+		profilDetail = (TextView)view.findViewById(R.id.profil_detail);
+		profilDetail.setText("Profil: "+resort.getProfil());
+		ecoliDetail = (TextView)view.findViewById(R.id.ecoli_detail);
+		ecoliDetail.setText("E.coli pro 100 ml: "+resort.getEco());
+		enteDetail = (TextView)view.findViewById(R.id.ente_detail);
+		enteDetail.setText("Intestinale Enterokokken pro 100 ml: "+resort.getEnte());
+		dateDetail = (TextView)view.findViewById(R.id.date_detail);
+		dateDetail.setText("Datum der Probeentnahme: "+resort.getSampleTaking().toString());
+		visibilityDetail = (TextView)view.findViewById(R.id.visibility_detail);
+		visibilityDetail.setText("Sichttiefe (cm): "+resort.getVisibilityRange());
+
+		int h = view.getHeight();
+		int w = view.getWidth();
+		ShapeDrawable mDrawable = new ShapeDrawable(new RectShape());
+
+		switch (resort.getColor()) {
+		case "gruen.jpg": 
+			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#339ACD32"), Color.parseColor("#00000000"), Shader.TileMode.MIRROR));
+			view.setBackgroundDrawable(mDrawable);
+			break;
+		case "gelb.jpg":
+			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE9A00"), Color.parseColor("#33EE9A00"), Shader.TileMode.MIRROR));
+			view.setBackgroundDrawable(mDrawable);
+			break;
+		case "rot.jpg":
+			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE4000"), Color.parseColor("#33EE4000"), Shader.TileMode.MIRROR));
+			view.setBackgroundDrawable(mDrawable);
+			break;
+		case "gruen_a.jpg":
+			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE4000"), Color.parseColor("#33EE4000"), Shader.TileMode.MIRROR));
+			view.setBackgroundDrawable(mDrawable);
+			break;
+		}
+
+//		MapsOverviewFragment mapFrag = new MapsOverviewFragment();
+//	
+//		FragmentTransaction ft = getFragmentManager().beginTransaction();
+//		ft.replace(R.id.map_detail, mapFrag);
+////			map.setUpMapIfNeeded();
+//		try {
+//			mapFrag.zoomTo(resort.getCoordinates(), 2);
+//		} catch (NullPointerException e) {
+//			// TODO: handle exception
+//			System.out.println("null geschmissen");
+//		}
+//		ft.commit();
+		
+		
+		map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map_detail)).getMap();
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(resort.getCoordinates(), 12));
+		MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
+		map.addMarker(marker);
+		//		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+		//		MapsOverviewFragment fragment = new MapsOverviewFragment();
+		//		ft.add(R.id.map_detail, fragment);
+		//        ft.commit();
+
+		return view;
+	}
+
+	public void updateDetail(String detail) {
+		nameDetail.setText(detail);
+	}
+}

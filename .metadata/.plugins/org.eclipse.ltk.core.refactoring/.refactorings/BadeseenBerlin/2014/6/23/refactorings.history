@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;map&apos; in &apos;com.example.badeseenberlin.DetailFragment.onCreateView(...)&apos; to &apos;mapFrag&apos;&#x0D;&#x0A;- Original project: &apos;BadeseenBerlin&apos;&#x0D;&#x0A;- Original element: &apos;com.example.badeseenberlin.DetailFragment.onCreateView(LayoutInflater, ViewGroup, Bundle).map&apos;&#x0D;&#x0A;- Renamed element: &apos;map&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;map&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;com.example.badeseenberlin{DetailFragment.java[DetailFragment~onCreateView~QLayoutInflater;~QViewGroup;~QBundle;@map!3249!3302!3270!3272!QMapsOverviewFragment;!0!false" name="mapFrag" references="true" stamp="1401956550090" version="1.0"/>
+</session>

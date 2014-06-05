@@ -4,6 +4,7 @@ package com.example.badeseenberlin;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 @SuppressLint("NewApi")
 public class DetailFragment extends Fragment {
 
+	GoogleMap map;
 	TextView nameDetail;
 	TextView locationDetail;
 	TextView profilDetail;
@@ -29,14 +31,17 @@ public class DetailFragment extends Fragment {
 	TextView enteDetail;
 	TextView dateDetail;
 	TextView visibilityDetail;
-	
-	  @SuppressWarnings("deprecation")
+
+	@SuppressWarnings("deprecation")
 	@Override
-	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-	    Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		if (container == null) {
+			return null;
+		}
 		Bundle bundle = getArguments();
 		Resort resort = (Resort) bundle.get(Constants.KEY);
-		View view = inflater.inflate(R.layout.fragment_detail, null);
+		View view = inflater.inflate(R.layout.fragment_detail, container, false);
 		nameDetail = (TextView)view.findViewById(R.id.name_detail);
 		nameDetail.setText(resort.getName());
 		locationDetail = (TextView)view.findViewById(R.id.location_detail);
@@ -51,38 +56,57 @@ public class DetailFragment extends Fragment {
 		dateDetail.setText("Datum der Probeentnahme: "+resort.getSampleTaking().toString());
 		visibilityDetail = (TextView)view.findViewById(R.id.visibility_detail);
 		visibilityDetail.setText("Sichttiefe (cm): "+resort.getVisibilityRange());
-		
+
 		int h = view.getHeight();
-	  	int w = view.getWidth();
-	  	ShapeDrawable mDrawable = new ShapeDrawable(new RectShape());
-  	  	
-  	  switch (resort.getColor()) {
-      case "gruen.jpg": 
-	      	 mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#339ACD32"), Color.parseColor("#00000000"), Shader.TileMode.MIRROR));
-	      	view.setBackgroundDrawable(mDrawable);
+		int w = view.getWidth();
+		ShapeDrawable mDrawable = new ShapeDrawable(new RectShape());
+
+		switch (resort.getColor()) {
+		case "gruen.jpg": 
+			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#339ACD32"), Color.parseColor("#00000000"), Shader.TileMode.MIRROR));
+			view.setBackgroundDrawable(mDrawable);
 			break;
 		case "gelb.jpg":
-		  	mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE9A00"), Color.parseColor("#33EE9A00"), Shader.TileMode.MIRROR));
-		  	view.setBackgroundDrawable(mDrawable);
+			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE9A00"), Color.parseColor("#33EE9A00"), Shader.TileMode.MIRROR));
+			view.setBackgroundDrawable(mDrawable);
 			break;
 		case "rot.jpg":
 			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE4000"), Color.parseColor("#33EE4000"), Shader.TileMode.MIRROR));
 			view.setBackgroundDrawable(mDrawable);
 			break;
 		case "gruen_a.jpg":
-			 mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE4000"), Color.parseColor("#33EE4000"), Shader.TileMode.MIRROR));
-			 view.setBackgroundDrawable(mDrawable);
-			 break;
+			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE4000"), Color.parseColor("#33EE4000"), Shader.TileMode.MIRROR));
+			view.setBackgroundDrawable(mDrawable);
+			break;
 		}
-//		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-//		MapsOverviewFragment fragment = new MapsOverviewFragment();
-//		ft.add(R.id.map_detail, fragment);
-//        ft.commit();
-        
-	   return view;
-	  }
 
-	  public void updateDetail(String detail) {
-	   nameDetail.setText(detail);
-	  }
+//		MapsOverviewFragment mapFrag = new MapsOverviewFragment();
+//	
+//		FragmentTransaction ft = getFragmentManager().beginTransaction();
+//		ft.replace(R.id.map_detail, mapFrag);
+////			map.setUpMapIfNeeded();
+//		try {
+//			mapFrag.zoomTo(resort.getCoordinates(), 2);
+//		} catch (NullPointerException e) {
+//			// TODO: handle exception
+//			System.out.println("null geschmissen");
+//		}
+//		ft.commit();
+		
+		
+		map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map_detail)).getMap();
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(resort.getCoordinates(), 12));
+		MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
+		map.addMarker(marker);
+		//		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+		//		MapsOverviewFragment fragment = new MapsOverviewFragment();
+		//		ft.add(R.id.map_detail, fragment);
+		//        ft.commit();
+
+		return view;
+	}
+
+	public void updateDetail(String detail) {
+		nameDetail.setText(detail);
+	}
 }
