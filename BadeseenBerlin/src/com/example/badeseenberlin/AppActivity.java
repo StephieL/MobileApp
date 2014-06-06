@@ -33,6 +33,7 @@ public class AppActivity extends Activity  {
 	         ft.replace(R.id.land_right, mFragment);
 	         ft.replace(R.id.land_left, lFragment);
 	         ft.commit();
+	         
 		}else{
 			isSinglePane = true;
 			acBar = getActionBar();

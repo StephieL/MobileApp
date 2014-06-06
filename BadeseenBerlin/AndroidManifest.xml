@@ -33,7 +33,7 @@
         <activity
             android:name="com.example.badeseenberlin.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat" >
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +46,8 @@
         </activity>
         <activity
             android:name="com.example.badeseenberlin.AppActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+             android:theme="@style/AppTheme" >
         </activity>
     </application>
 

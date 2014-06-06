@@ -4,6 +4,11 @@ package com.example.badeseenberlin;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.annotation.SuppressLint;
@@ -16,6 +21,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -31,17 +37,33 @@ public class DetailFragment extends Fragment {
 	TextView enteDetail;
 	TextView dateDetail;
 	TextView visibilityDetail;
+	private MapFragment mapFrag;
+	private View view;
+	private MapView mapView;
+	private Resort resort;
+	private GoogleMap googleMap;
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		if (container == null) {
-			return null;
-		}
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		Bundle bundle = getArguments();
-		Resort resort = (Resort) bundle.get(Constants.KEY);
-		View view = inflater.inflate(R.layout.fragment_detail, container, false);
+		resort = (Resort) bundle.get(Constants.KEY);
+		view = inflater.inflate(R.layout.fragment_detail, container, false);
+
+		mapView = (MapView) view.findViewById(R.id.map_detail);
+
+		// inflat and return the layout
+		mapView.onCreate(savedInstanceState);
+		mapView.onResume();// needed to get the map to display immediately
+
+		MapsInitializer.initialize(getActivity());
+		googleMap = mapView.getMap();
+        initilizeMap();
+		setUpFragment();
+		return view;
+	}
+
+	private void setUpFragment(){
 		nameDetail = (TextView)view.findViewById(R.id.name_detail);
 		nameDetail.setText(resort.getName());
 		locationDetail = (TextView)view.findViewById(R.id.location_detail);
@@ -79,34 +101,107 @@ public class DetailFragment extends Fragment {
 			view.setBackgroundDrawable(mDrawable);
 			break;
 		}
-
-//		MapsOverviewFragment mapFrag = new MapsOverviewFragment();
-//	
-//		FragmentTransaction ft = getFragmentManager().beginTransaction();
-//		ft.replace(R.id.map_detail, mapFrag);
-////			map.setUpMapIfNeeded();
-//		try {
-//			mapFrag.zoomTo(resort.getCoordinates(), 2);
-//		} catch (NullPointerException e) {
-//			// TODO: handle exception
-//			System.out.println("null geschmissen");
+	}
+	
+//	public void setUpMapIfNeeded() {
+//		if (mapView == null) {
+//			// Try to obtain the map from the SupportMapFragment.
+//			//			MapsInitializer.initialize(getActivity());
+//			googleMap = mapView.getMap();
+//			//			if (googleMap!=null){
+//			// Check if we were successful in obtaining the map.
+//			initilizeMap();
+//			//			}
 //		}
-//		ft.commit();
-		
-		
-		map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map_detail)).getMap();
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(resort.getCoordinates(), 12));
+//	}
+
+	public void initilizeMap() {
+
+		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(resort.getCoordinates(), 12));
 		MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
-		map.addMarker(marker);
-		//		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-		//		MapsOverviewFragment fragment = new MapsOverviewFragment();
-		//		ft.add(R.id.map_detail, fragment);
-		//        ft.commit();
+		//		zoomTo(resort.getCoordinates(), 8);
 
-		return view;
+
+		switch(resort.getColor()){
+		case "gruen.jpg":
+			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+			break;
+		case "gelb.jpg":
+			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+			break;
+		case "rot.jpg":
+			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+			break;
+		case "gruen_a.jpg":
+			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+			break;
+		}
+
+		googleMap.addMarker(marker);
 	}
 
-	public void updateDetail(String detail) {
-		nameDetail.setText(detail);
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+	// Handle action bar item clicks here. The action bar will
+	// automatically handle clicks on the Home/Up button, so long
+	// as you specify a parent activity in AndroidManifest.xml.
+	int id = item.getItemId();
+	if (id == R.id.action_settings) {
+		return true;
 	}
+	return super.onOptionsItemSelected(item);
+}
+
+//public void onInfoWindowClick(Marker arg0) {
+////	System.out.println("On Window Clicked");
+////	DetailFragment myDetailFragment = new DetailFragment();
+////	AppActivity main = (AppActivity) getActivity();
+////	main.changeFragment(myDetailFragment);
+//
+//}
+public void zoomTo(LatLng coords, int level){
+	if (googleMap != null) {
+		//		setUpMapIfNeeded();
+		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coords, level));
+	}
+
+}
+//@Override
+//public void onResume() {
+//	super.onResume();
+//	if (null != mapView)
+//		mapView.onResume();
+//}
+//
+//@Override
+//public void onPause() {
+//	super.onPause();
+//	if (null != mapView)
+//		mapView.onPause();
+//}
+//
+//@Override
+//public void onDestroy() {
+//	super.onDestroy();
+//	if (null != mapView)
+//		mapView.onDestroy();
+//}
+//
+//@Override
+//public void onSaveInstanceState(Bundle outState) {
+//	super.onSaveInstanceState(outState);
+//	if (null != mapView)
+//		mapView.onSaveInstanceState(outState);
+//}
+//
+//@Override
+//public void onLowMemory() {
+//	super.onLowMemory();
+//	if (null != mapView)
+//		mapView.onLowMemory();
+//}
+//public void updateDetail(String detail) {
+//	nameDetail.setText(detail);
+//}
 }
