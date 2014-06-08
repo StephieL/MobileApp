@@ -70,7 +70,7 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 //			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 			zoomTo(berlinCoords, 8);
 			//        	 map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-			for(final Resort resort:AppActivity.myResorts){
+			for(final Resort resort:MainActivity.myResorts){
 				MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
 				//        		 map.setInfoWindowAdapter(new InfoWindowAdapter() {
 				//        		      

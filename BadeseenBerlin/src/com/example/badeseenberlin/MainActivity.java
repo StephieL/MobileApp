@@ -6,40 +6,102 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
-public class MainActivity extends ActionBarActivity {
-	private ProgressDialog pDialog;
-	protected static ArrayList<Resort> resortlist = new ArrayList<Resort>();
+public class MainActivity extends Activity implements OnQueryTextListener {
 
-	public static ArrayList<Resort> getResortlist() {
-		return resortlist;
-	}
-
+	static boolean isSinglePane;
+	ActionBar acBar;
+	Tab tabList;
+	Tab tabMap;
+	public static ArrayList<Resort> myResorts= new ArrayList<Resort>();
 	private static String url = "http://www.bam.li/Badewasser_latin9.json";
+	private ProgressDialog pDialog;
+	private Fragment mFragment;
+	private Fragment lFragment;
 
-	// resorts JSONArray
-	JSONArray resorts = null;
-	
-	
-	private Button startButton;
-	
+	@SuppressWarnings("unchecked")
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-
-	   startButton = (Button)findViewById(R.id.startButton);
 		new GetResortData().execute();
-	   
+		mFragment = Fragment.instantiate(this, MapsOverviewFragment.class.getName());
+		lFragment = Fragment.instantiate(this, MyListFragment.class.getName());
+
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.activity_main_actions, menu);
+
+		// Associate searchable configuration with the SearchView
+		SearchManager searchManager = (SearchManager) getSystemService( Context.SEARCH_SERVICE );
+		SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		searchView.setSubmitButtonEnabled(true);
+		searchView.setOnQueryTextListener(this);
+
+		return super.onCreateOptionsMenu(menu);
+	}
+	/**
+	 * On selecting action bar icons
+	 * */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Take appropriate action for each action item click
+		switch (item.getItemId()) {
+		case R.id.action_search:
+			// search action
+			return true;
+			//	        case R.id.action_location_found:
+			//	            // location found
+			//	            LocationFound();
+			//	            return true;
+			//	        case R.id.action_refresh:
+			//	            // refresh
+			//	            return true;
+			//	        case R.id.action_help:
+			//	            // help action
+			//	            return true;
+			//	        case R.id.action_check_updates:
+			//	            // check for updates action
+			//	            return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	public void changeFragment(Fragment fragment) {
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		if (isSinglePane){
+			ft.replace(R.id.main_container, fragment);
+			ft.addToBackStack(null);
+			ft.commit();
+		}else{
+			ft.replace(R.id.land_right, fragment);
+			ft.addToBackStack(null);
+			ft.commit(); 
+		}
+
 	}
 
 	/**
@@ -47,10 +109,12 @@ public class MainActivity extends ActionBarActivity {
 	 * */
 	public class GetResortData extends AsyncTask<Void, Void, JSONArray> {
 
+		private JSONArray resorts;
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			
+
 			// Showing progress dialog
 			pDialog = new ProgressDialog(MainActivity.this);
 			pDialog.setMessage("Getting Data, please wait...");
@@ -61,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		protected JSONArray doInBackground(Void... arg0) {
-			
+
 			// Creating service handler class instance
 			ServiceHandler sh = new ServiceHandler();
 
@@ -98,9 +162,7 @@ public class MainActivity extends ActionBarActivity {
 				if (resorts!=null){
 					for (int i = 0; i < resorts.length(); i++) {
 						JSONObject c = resorts.getJSONObject(i);
-						//
-						
-					
+
 						String idText=c.getString(Constants.ID);
 						String webLink=c.getString(Constants.LINK);
 						String name=c.getString(Constants.NAME);
@@ -114,54 +176,66 @@ public class MainActivity extends ActionBarActivity {
 						String rssName=c.getString(Constants.RSS);
 						String coords=c.getString(Constants.COORDS);
 						String color = c.getString(Constants.COLOR);
-						
+
 						int id=Integer.parseInt(idText);
-						String[] coordsArray = coords.split(",", 2);
-						float lat = Float.parseFloat(coordsArray[1]);
-						float lng = Float.parseFloat(coordsArray[0]);
-						
 
 						Resort resort = new Resort(id, webLink, name, location, date, eco, ente, visibilityRange, profil, profilLink, rssName, coords, color);
-
-//						resortListHM.add(resort.getResortAsHM()); 
-						resortlist.add(resort);
+						myResorts.add(resort);
 					}
 
 				}
 			}catch (JSONException e) {
 				e.printStackTrace();
 			} 
-			
-			 startButton.setOnClickListener(new View.OnClickListener() {
 
-		      @Override
-		      public void onClick(View view) {
-		        Intent intent = new Intent(MainActivity.this, AppActivity.class);
-		        Bundle mBundle = new Bundle();
-		        mBundle.putSerializable(Constants.RESORTS, resortlist);
-		        intent.putExtras(mBundle);
-		        startActivity(intent);
-		      }
+			View v = findViewById(R.id.main_container);
+			if(v == null){
+				isSinglePane = false;
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-		    });
-			
+				ft.replace(R.id.land_right, mFragment);
+				ft.replace(R.id.land_left, lFragment);
+				ft.commit();
+
+			}else{
+				isSinglePane = true;
+				acBar = getActionBar();
+				acBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+				acBar.setDisplayShowTitleEnabled(false);
+				tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener<MyListFragment>(MainActivity.this, "List", MyListFragment.class));
+				acBar.addTab(tabList);
+				tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener<MapsOverviewFragment>(MainActivity.this, "List", MapsOverviewFragment.class));
+				acBar.addTab(tabMap);
+			}
+
 		}
 	}
-	
-//	private String checkString(JSONObject c, String text){
-//		String checkedString="";
-//		try {
-//			if (c.getString(Constants.ID).equals("")){
-//				checkedString="keine Angabe";
-//			}else{
-//				checkedString=c.getString(Constants.ID);
-//			}
-//				
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return checkedString;
-//	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		// this is your adapter that will be filtered
+		if(isSinglePane && acBar.getSelectedNavigationIndex()==0 ){
+			if (TextUtils.isEmpty(newText)){
+				MyListFragment.listView.clearTextFilter();
+			}
+			else {
+				MyListFragment.listView.setFilterText(newText.toString());
+			}
+		}else if (!isSinglePane){
+			if (TextUtils.isEmpty(newText)){
+				MyListFragment.listView.clearTextFilter();
+			}
+			else {
+				MyListFragment.listView.setFilterText(newText.toString());
+			}
+		}
+		return true;
+	}
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }
