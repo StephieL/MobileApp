@@ -33,9 +33,12 @@ public class DetailFragment extends Fragment {
 	TextView nameDetail;
 	TextView locationDetail;
 	TextView profilDetail;
+	TextView ecoliData;
 	TextView ecoliDetail;
+	TextView enteData;
 	TextView enteDetail;
 	TextView dateDetail;
+	TextView visibilityData;
 	TextView visibilityDetail;
 	private MapFragment mapFrag;
 	private View view;
@@ -66,40 +69,45 @@ public class DetailFragment extends Fragment {
 	private void setUpFragment(){
 		nameDetail = (TextView)view.findViewById(R.id.name_detail);
 		nameDetail.setText(resort.getName());
+		
 		locationDetail = (TextView)view.findViewById(R.id.location_detail);
-		locationDetail.setText("Bezirk: "+resort.getLocation());
-		profilDetail = (TextView)view.findViewById(R.id.profil_detail);
-		profilDetail.setText("Profil: "+resort.getProfil());
+		locationDetail.setText(resort.getProfil()+" ("+resort.getLocation()+")");
+		
 		ecoliDetail = (TextView)view.findViewById(R.id.ecoli_detail);
-		ecoliDetail.setText("E.coli pro 100 ml: "+resort.getEco());
+		ecoliDetail.setText("E.coli : ");		
+		ecoliData = (TextView)view.findViewById(R.id.ecoli_data);
+		ecoliData.setText(resort.getEco());
+		
+		
 		enteDetail = (TextView)view.findViewById(R.id.ente_detail);
-		enteDetail.setText("Intestinale Enterokokken pro 100 ml: "+resort.getEnte());
+		enteDetail.setText("Intest. Enterokokken : ");
+		enteData = (TextView)view.findViewById(R.id.ente_data);
+		enteData.setText(resort.getEnte());
+		
 		dateDetail = (TextView)view.findViewById(R.id.date_detail);
-		dateDetail.setText("Datum der Probeentnahme: "+resort.getSampleTaking().toString());
+		dateDetail.setText("(gemessen am "+resort.getSampleTaking().toString()+")");
+		
 		visibilityDetail = (TextView)view.findViewById(R.id.visibility_detail);
-		visibilityDetail.setText("Sichttiefe (cm): "+resort.getVisibilityRange());
+		visibilityDetail.setText("Sichttiefe : ");
+		visibilityData = (TextView)view.findViewById(R.id.visibility_data);
+		visibilityData.setText(resort.getVisibilityRange());
 
-		int h = view.getHeight();
-		int w = view.getWidth();
-		ShapeDrawable mDrawable = new ShapeDrawable(new RectShape());
+  	  	int green = Color.parseColor("#66669900");
+  	  	int yellow = Color.parseColor("#66FF8800");
+  	  	int red = Color.parseColor("#66CC0000");
+		
 
 		switch (resort.getColor()) {
-		case "gruen.jpg": 
-			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#339ACD32"), Color.parseColor("#00000000"), Shader.TileMode.MIRROR));
-			view.setBackgroundDrawable(mDrawable);
+		case "gruen.jpg": case "gruen_a.jpg":
+			view.setBackgroundColor(green);
 			break;
 		case "gelb.jpg":
-			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE9A00"), Color.parseColor("#33EE9A00"), Shader.TileMode.MIRROR));
-			view.setBackgroundDrawable(mDrawable);
+			view.setBackgroundColor(yellow);
 			break;
 		case "rot.jpg":
-			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE4000"), Color.parseColor("#33EE4000"), Shader.TileMode.MIRROR));
-			view.setBackgroundDrawable(mDrawable);
+			view.setBackgroundColor(red);
 			break;
-		case "gruen_a.jpg":
-			mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#33EE4000"), Color.parseColor("#33EE4000"), Shader.TileMode.MIRROR));
-			view.setBackgroundDrawable(mDrawable);
-			break;
+		
 		}
 	}
 	

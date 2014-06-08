@@ -31,7 +31,7 @@
             android:value="AIzaSyBHAn-sRvDFj3jziueVhaITu1fJ6tpmCSc" />
 
         <activity
-            android:name="com.example.badeseenberlin.MainActivity"
+            android:name="com.example.badeseenberlin.AppActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>

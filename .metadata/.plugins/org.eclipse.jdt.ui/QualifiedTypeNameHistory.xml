@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.view.LayoutInflater"/>
-<fullyQualifiedTypeName name="android.view.ViewGroup"/>
-<fullyQualifiedTypeName name="android.view.View"/>
-<fullyQualifiedTypeName name="com.example.badeseenberlin.R.layout"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
 <fullyQualifiedTypeName name="android.widget.TabHost"/>
 <fullyQualifiedTypeName name="android.app.TabActivity"/>
@@ -14,14 +10,11 @@
 <fullyQualifiedTypeName name="android.app.ActionBar"/>
 <fullyQualifiedTypeName name="com.example.badeseenberlin.R.string"/>
 <fullyQualifiedTypeName name="android.app.ActionBar.TabListener"/>
-<fullyQualifiedTypeName name="com.google.android.gms.maps.MapFragment"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.SupportMapFragment"/>
 <fullyQualifiedTypeName name="com.example.badeseenberlin.MapsOverviewActivity"/>
-<fullyQualifiedTypeName name="com.example.badeseenberlin.MapsOverviewFragment"/>
 <fullyQualifiedTypeName name="android.app.Fragment"/>
 <fullyQualifiedTypeName name="android.view.InflateException"/>
 <fullyQualifiedTypeName name="com.example.badeseenberlin.Resort"/>
-<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="android.app.Dialog"/>
 <fullyQualifiedTypeName name="android.app.Activity"/>
 <fullyQualifiedTypeName name="com.example.badeseenberlin.JSONHandler.GetResortData"/>
@@ -56,8 +49,15 @@
 <fullyQualifiedTypeName name="android.R.id"/>
 <fullyQualifiedTypeName name="android.app.ListFragment"/>
 <fullyQualifiedTypeName name="android.widget.ListView"/>
-<fullyQualifiedTypeName name="com.example.badeseenberlin.R.id"/>
 <fullyQualifiedTypeName name="com.example.badeseenberlin.MainActivity"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.Marker"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.BitmapDescriptorFactory"/>
+<fullyQualifiedTypeName name="com.example.badeseenberlin.R.id"/>
+<fullyQualifiedTypeName name="com.google.android.gms.games.multiplayer.turnbased.TurnBasedMultiplayer.InitiateMatchResult"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.MapFragment"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.MapsInitializer"/>
+<fullyQualifiedTypeName name="com.google.android.gms.common.GooglePlayServicesNotAvailableException"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="com.example.badeseenberlin.MapsOverviewFragment"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.GoogleMap"/>
 </qualifiedTypeNameHistroy>

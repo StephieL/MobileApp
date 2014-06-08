@@ -70,7 +70,7 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 //			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 			zoomTo(berlinCoords, 8);
 			//        	 map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-			for(final Resort resort:MainActivity.myResorts){
+			for(final Resort resort:AppActivity.myResorts){
 				MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
 				//        		 map.setInfoWindowAdapter(new InfoWindowAdapter() {
 				//        		      
@@ -96,16 +96,13 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 				//                     }
 				//                 });
 				switch(resort.getColor()){
-				case "gruen.jpg":
+				case "gruen.jpg": case "gruen_a.jpg":
 					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 					break;
 				case "gelb.jpg":
 					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 					break;
 				case "rot.jpg":
-					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-					break;
-				case "gruen_a.jpg":
 					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 					break;
 				}

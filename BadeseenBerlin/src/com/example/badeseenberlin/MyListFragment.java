@@ -30,7 +30,7 @@ public class MyListFragment extends ListFragment {
 		listView = (ListView) view.findViewById(android.R.id.list);
 		resortListHM =  new ArrayList<HashMap<String, Object>>();
 		
-		for (final Resort resort : MainActivity.myResorts){
+		for (final Resort resort : AppActivity.myResorts){
 			resortListHM.add(resort.getResortAsHM());
 			currentResort=resort;
 		}
@@ -55,18 +55,18 @@ public class MyListFragment extends ListFragment {
 	        String actClickedItemName= (String) actClicked.get(Constants.NAME);
 	        int index=0;
 	        
-	        for (Resort resort : MainActivity.myResorts){
+	        for (Resort resort : AppActivity.myResorts){
 	        	if (resort.getName()==actClickedItemName){
-	        		index = MainActivity.myResorts.indexOf(resort);
+	        		index = AppActivity.myResorts.indexOf(resort);
 	        	}
 	        }
 	        
 			adapter.notifyDataSetChanged();
 	  	  	DetailFragment myDetailFragment = new DetailFragment();
 	  	  	Bundle mBundle = new Bundle();
-			mBundle.putSerializable(Constants.KEY, MainActivity.myResorts.get(index));
+			mBundle.putSerializable(Constants.KEY, AppActivity.myResorts.get(index));
 			myDetailFragment.setArguments(mBundle);
-	  	  	MainActivity main = (MainActivity) getActivity();
+	  	  	AppActivity main = (AppActivity) getActivity();
 	  	  	main.changeFragment(myDetailFragment);
 	    }
 	

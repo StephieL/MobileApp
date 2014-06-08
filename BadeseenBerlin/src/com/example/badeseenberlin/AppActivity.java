@@ -26,7 +26,7 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
-public class MainActivity extends Activity implements OnQueryTextListener {
+public class AppActivity extends Activity implements OnQueryTextListener {
 
 	static boolean isSinglePane;
 	ActionBar acBar;
@@ -116,7 +116,7 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 			super.onPreExecute();
 
 			// Showing progress dialog
-			pDialog = new ProgressDialog(MainActivity.this);
+			pDialog = new ProgressDialog(AppActivity.this);
 			pDialog.setMessage("Getting Data, please wait...");
 			pDialog.setCancelable(false);
 			pDialog.show();
@@ -202,9 +202,9 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 				acBar = getActionBar();
 				acBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 				acBar.setDisplayShowTitleEnabled(false);
-				tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener<MyListFragment>(MainActivity.this, "List", MyListFragment.class));
+				tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener<MyListFragment>(AppActivity.this, "List", MyListFragment.class));
 				acBar.addTab(tabList);
-				tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener<MapsOverviewFragment>(MainActivity.this, "List", MapsOverviewFragment.class));
+				tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener<MapsOverviewFragment>(AppActivity.this, "List", MapsOverviewFragment.class));
 				acBar.addTab(tabMap);
 			}
 

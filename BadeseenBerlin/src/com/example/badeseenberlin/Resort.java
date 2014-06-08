@@ -45,9 +45,22 @@ public class Resort implements Serializable{
 		this.name = name;
 		this.location = location;
 		this.sampleTaking = sampleTaking;
-		this.eco = eco;
-		this.ente = ente;
-		this.visibilityRange = visibilityRange;
+		if(eco.equals("")){
+			this.eco = "k.A.";
+		}else{
+			this.eco = eco+" (KbE/100ml)";
+		}
+		if(ente.equals("")){
+			this.ente = "k.A.";
+		}else{
+			this.ente = ente+" (KbE/100ml)";
+		}
+		if(visibilityRange.equals("")){
+			this.visibilityRange = "k.A.";
+		}else{
+			this.visibilityRange = visibilityRange+" cm";		
+		}
+		
 		this.profil = profil;
 		this.profilLink = profilLink;
 		this.rssName = rssName;
