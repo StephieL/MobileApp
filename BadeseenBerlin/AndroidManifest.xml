@@ -31,23 +31,17 @@
             android:value="AIzaSyBHAn-sRvDFj3jziueVhaITu1fJ6tpmCSc" />
 
         <activity
-            android:name="com.example.badeseenberlin.MainActivity"
+            android:name="com.example.badeseenberlin.AppActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.badeseenberlin.DetailFragment"
-            android:label="@string/title_activity_detail" >
-        </activity>
-        <activity
-            android:name="com.example.badeseenberlin.AppActivity"
-            android:label="@string/app_name"
-             android:theme="@style/AppTheme" >
+            android:label="@string/app_name" >
         </activity>
     </application>
 

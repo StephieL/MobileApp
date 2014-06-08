@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Badestellen in Berlin</string>
+    <string name="app_name">Badeseen in Berlin</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_detail">DetailActivity</string>
@@ -9,5 +8,7 @@
     <string name="tab1">Badestellen</string>
     <string name="tab2">Karte</string>
     <string name="title_activity_detail_fragment">DetailFragment</string>
-
+    <string name="action_search">"Suche"</string>
+    <string name="search_hint">"Suchbegriff eingeben"</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
 </resources>
