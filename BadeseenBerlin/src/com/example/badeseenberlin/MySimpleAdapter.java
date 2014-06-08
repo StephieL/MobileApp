@@ -32,25 +32,28 @@ public class MySimpleAdapter extends SimpleAdapter {
         View v = super.getView(position, convertView,   parent);
         int h = v.getHeight();
   	  	int w = v.getWidth();
+  	  	
+  	  	int white = Color.parseColor("#00EDEDED");
+  	  	int green = Color.parseColor("#E6669900");
+  	  	int yellow = Color.parseColor("#E6FF8800");
+  	  	int red = Color.parseColor("#E6CC0000");
+  	  	
   	  	ShapeDrawable mDrawable = new ShapeDrawable(new RectShape());
         String color = (String)items.get(position).get(Constants.COLOR);
         switch (color) {
-        case "gruen.jpg": 
-        	  mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#00000000"), Color.parseColor("#E69ACD32"), Shader.TileMode.MIRROR));
+        case "gruen.jpg": case "gruen_a.jpg": 
+        	  mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, white, green, Shader.TileMode.MIRROR));
         	  v.setBackgroundDrawable(mDrawable);
 			break;
 		case "gelb.jpg":
-    	    mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#00000000"), Color.parseColor("#E6EE9A00"), Shader.TileMode.MIRROR));
+    	    mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, white, yellow, Shader.TileMode.MIRROR));
     	    v.setBackgroundDrawable(mDrawable);
 			break;
 		case "rot.jpg":
-			   mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#00000000"), Color.parseColor("#E6EE4000"), Shader.TileMode.MIRROR));
+			   mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, white, red, Shader.TileMode.MIRROR));
 	    	   v.setBackgroundDrawable(mDrawable);
 			break;
-		case "gruen_a.jpg":
-			 mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, Color.parseColor("#00000000"), Color.parseColor("#E6EE4000"), Shader.TileMode.MIRROR));
-	    	 v.setBackgroundDrawable(mDrawable);
-			break;
+		
 		}
          //or whatever is your default color
           //if the position exists in that list the you must set the background to BLUE

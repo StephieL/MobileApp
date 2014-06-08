@@ -96,16 +96,13 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 				//                     }
 				//                 });
 				switch(resort.getColor()){
-				case "gruen.jpg":
+				case "gruen.jpg": case "gruen_a.jpg":
 					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 					break;
 				case "gelb.jpg":
 					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 					break;
 				case "rot.jpg":
-					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-					break;
-				case "gruen_a.jpg":
 					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 					break;
 				}

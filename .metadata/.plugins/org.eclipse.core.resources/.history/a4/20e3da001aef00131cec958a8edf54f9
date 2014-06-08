@@ -1,0 +1,67 @@
+package com.example.badeseenberlin;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.SimpleAdapter;
+import android.graphics.Shader;
+
+public class MySimpleAdapter extends SimpleAdapter {
+	ArrayList<HashMap<String, Object>> items;
+    @SuppressWarnings("unchecked")
+	public MySimpleAdapter(Context context, ArrayList<? extends HashMap<String, ?>> data,
+            int resource, String[] from, int[] to) {
+        super(context, data, resource, from, to);
+        this.items=(ArrayList<HashMap<String, Object>>) data;
+    }
+
+    @SuppressWarnings("deprecation")
+	@Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View v = super.getView(position, convertView,   parent);
+        int h = v.getHeight();
+  	  	int w = v.getWidth();
+  	  	
+  	  	int white = Color.parseColor("#00000000");
+  	  	int green = Color.parseColor("#E600CC00");
+  	  	int yellow = Color.parseColor("#E6FFAA00");
+  	  	int red = Color.parseColor("#E6FF0000");
+  	  	int[] gradGreen = new int[]{white, green};
+  	  	int[] gradYellow = new int[]{white, yellow};
+  	  	int[] gradRed = new int[]{white, red};
+  	  	float[] positions = new float[]{0.8f, 0.4f};
+  	  	
+  	  	ShapeDrawable mDrawable = new ShapeDrawable(new RectShape());
+        String color = (String)items.get(position).get(Constants.COLOR);
+        switch (color) {
+        case "gruen.jpg": case "gruen_a.jpg": 
+        	  mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, white, green, Shader.TileMode.MIRROR));
+        	  v.setBackgroundDrawable(mDrawable);
+			break;
+		case "gelb.jpg":
+    	    mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, white, yellow, Shader.TileMode.MIRROR));
+    	    v.setBackgroundDrawable(mDrawable);
+			break;
+		case "rot.jpg":
+			   mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, gradRed, positions, Shader.TileMode.MIRROR));
+	    	   v.setBackgroundDrawable(mDrawable);
+			break;
+		
+		}
+         //or whatever is your default color
+          //if the position exists in that list the you must set the background to BLUE
+        return v;
+    }
+
+}

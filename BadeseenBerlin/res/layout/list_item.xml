@@ -12,9 +12,11 @@
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
-        android:textColor="#43bd00"
+        android:textColor="#2e2e2e"
         android:textSize="16sp"
-        android:textStyle="bold" >
+        android:textStyle="bold" 
+        android:layout_marginLeft="8dp"
+		android:layout_marginRight="8dp">
     </TextView>
       
  
@@ -22,9 +24,11 @@
     <TextView
         android:id="@+id/resortLocation"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="2dip"
-        android:textColor="#acacac" >
+        android:layout_height="wrap_content"       
+        android:textSize="12sp"
+        android:textColor="#4f4f4f" 
+        android:layout_marginLeft="8dp"
+		android:layout_marginRight="8dp">
      </TextView> 
 
 </LinearLayout>

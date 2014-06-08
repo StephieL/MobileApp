@@ -38,7 +38,7 @@ public class AppActivity extends Activity  {
 			isSinglePane = true;
 			acBar = getActionBar();
 			acBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-			acBar.setDisplayShowTitleEnabled(false);
+			acBar.setDisplayShowTitleEnabled(true);
 			tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener<MyListFragment>(AppActivity.this, "List", MyListFragment.class));
 			acBar.addTab(tabList);
 			tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener<MapsOverviewFragment>(AppActivity.this, "List", MapsOverviewFragment.class));

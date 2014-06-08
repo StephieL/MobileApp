@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BadeseenBerlin</string>
+    <string name="app_name">Badestellen in Berlin</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_maps_overview">MapsOverviewActivity</string>
-    <string name="tab1">List</string>
-    <string name="tab2">Map</string>
+    <string name="tab1">Badestellen</string>
+    <string name="tab2">Karte</string>
     <string name="title_activity_detail_fragment">DetailFragment</string>
 
 </resources>
