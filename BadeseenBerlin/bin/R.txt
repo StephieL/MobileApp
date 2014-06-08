@@ -410,11 +410,10 @@ int layout fragment_app 0x7f03001b
 int layout fragment_detail 0x7f03001c
 int layout fragment_list 0x7f03001d
 int layout fragment_maps_overview 0x7f03001e
-int layout fragment_search_results 0x7f03001f
-int layout fragment_tabs 0x7f030020
-int layout list_item 0x7f030021
-int layout map_info_window 0x7f030022
-int layout support_simple_spinner_dropdown_item 0x7f030023
+int layout fragment_tabs 0x7f03001f
+int layout list_item 0x7f030020
+int layout map_info_window 0x7f030021
+int layout support_simple_spinner_dropdown_item 0x7f030022
 int menu activity_main_actions 0x7f0d0000
 int menu detail 0x7f0d0001
 int menu main 0x7f0d0002

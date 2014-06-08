@@ -42,11 +42,10 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_app);
 		new GetResortData().execute();
 		mFragment = Fragment.instantiate(this, MapsOverviewFragment.class.getName());
 		lFragment = Fragment.instantiate(this, MyListFragment.class.getName());
-
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -160,6 +159,7 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 			try{
 				// Getting JSON Array node
 				if (resorts!=null){
+					myResorts.clear();
 					for (int i = 0; i < resorts.length(); i++) {
 						JSONObject c = resorts.getJSONObject(i);
 
@@ -192,7 +192,6 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 			if(v == null){
 				isSinglePane = false;
 				FragmentTransaction ft = getFragmentManager().beginTransaction();
-
 				ft.replace(R.id.land_right, mFragment);
 				ft.replace(R.id.land_left, lFragment);
 				ft.commit();
@@ -214,20 +213,24 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 	@Override
 	public boolean onQueryTextChange(String newText) {
 		// this is your adapter that will be filtered
-		if(isSinglePane && acBar.getSelectedNavigationIndex()==0 ){
+		if(isSinglePane && acBar!=null){
+			if(acBar.getSelectedNavigationIndex()==0 ){
+				if (TextUtils.isEmpty(newText)){
+					MyListFragment.listView.clearTextFilter();
+				}
+				else {
+					MyListFragment.listView.setFilterText(newText.toString());
+				}
+			}
+		}
+		else if (!isSinglePane){
 			if (TextUtils.isEmpty(newText)){
 				MyListFragment.listView.clearTextFilter();
 			}
 			else {
 				MyListFragment.listView.setFilterText(newText.toString());
 			}
-		}else if (!isSinglePane){
-			if (TextUtils.isEmpty(newText)){
-				MyListFragment.listView.clearTextFilter();
-			}
-			else {
-				MyListFragment.listView.setFilterText(newText.toString());
-			}
+			
 		}
 		return true;
 	}
