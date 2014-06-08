@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
 
 public class AppActivity extends Activity implements OnQueryTextListener {
 
@@ -221,6 +222,13 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 				else {
 					MyListFragment.listView.setFilterText(newText.toString());
 				}
+			}else{
+				Context context = getApplicationContext();
+				CharSequence text = "Keine Suche möglich";
+				int duration = Toast.LENGTH_SHORT;
+
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
 			}
 		}
 		else if (!isSinglePane){
