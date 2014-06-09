@@ -1172,13 +1172,13 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f02006c;
         public static final int common_signin_btn_text_pressed_dark=0x7f02006d;
         public static final int common_signin_btn_text_pressed_light=0x7f02006e;
-        public static final int ic_action_search=0x7f02006f;
-        public static final int ic_launcher=0x7f020070;
-        public static final int ic_plusone_medium_off_client=0x7f020071;
-        public static final int ic_plusone_small_off_client=0x7f020072;
-        public static final int ic_plusone_standard_off_client=0x7f020073;
-        public static final int ic_plusone_tall_off_client=0x7f020074;
-        public static final int my_nine_patch=0x7f020075;
+        public static final int ic_action_refresh=0x7f02006f;
+        public static final int ic_action_search=0x7f020070;
+        public static final int ic_launcher=0x7f020071;
+        public static final int ic_plusone_medium_off_client=0x7f020072;
+        public static final int ic_plusone_small_off_client=0x7f020073;
+        public static final int ic_plusone_standard_off_client=0x7f020074;
+        public static final int ic_plusone_tall_off_client=0x7f020075;
         public static final int thumbsup=0x7f020076;
     }
     public static final class id {
@@ -1193,25 +1193,25 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f070019;
         public static final int action_menu_presenter=0x7f07001a;
         public static final int action_mode_close_button=0x7f070027;
-        public static final int action_search=0x7f070058;
-        public static final int action_settings=0x7f070059;
+        public static final int action_search=0x7f070059;
+        public static final int action_settings=0x7f07005a;
         public static final int activity_chooser_view_content=0x7f070028;
         public static final int always=0x7f07000f;
         public static final int beginning=0x7f070014;
         public static final int checkbox=0x7f070030;
         public static final int collapseActionView=0x7f070011;
-        public static final int container=0x7f070043;
-        public static final int date_detail=0x7f07004d;
+        public static final int container=0x7f070044;
+        public static final int date_detail=0x7f07004e;
         public static final int default_activity_button=0x7f07002b;
         public static final int dialog=0x7f070012;
         public static final int disableHome=0x7f07000c;
         public static final int dropdown=0x7f070013;
-        public static final int ecoli_data=0x7f070048;
-        public static final int ecoli_detail=0x7f070047;
+        public static final int ecoli_data=0x7f070049;
+        public static final int ecoli_detail=0x7f070048;
         public static final int edit_query=0x7f070033;
         public static final int end=0x7f070016;
-        public static final int ente_data=0x7f07004a;
-        public static final int ente_detail=0x7f070049;
+        public static final int ente_data=0x7f07004b;
+        public static final int ente_detail=0x7f07004a;
         public static final int expand_activities_button=0x7f070029;
         public static final int expanded_menu=0x7f07002f;
         public static final int home=0x7f070017;
@@ -1220,29 +1220,30 @@ containing a value of this type.
         public static final int icon=0x7f07002d;
         public static final int ifRoom=0x7f07000e;
         public static final int image=0x7f07002a;
-        public static final int infoWindowContent=0x7f070054;
-        public static final int info_resortName=0x7f070056;
-        public static final int info_resortPlace=0x7f070057;
-        public static final int lakeWebLink=0x7f070055;
-        public static final int land_left=0x7f070041;
-        public static final int land_right=0x7f070042;
+        public static final int infoWindowContent=0x7f070055;
+        public static final int info_resortName=0x7f070057;
+        public static final int info_resortPlace=0x7f070058;
+        public static final int lakeWebLink=0x7f070056;
+        public static final int land_left=0x7f070042;
+        public static final int land_right=0x7f070043;
         public static final int listMode=0x7f070005;
         public static final int list_item=0x7f07002c;
-        public static final int location_detail=0x7f070046;
-        public static final int main_container=0x7f070040;
-        public static final int mainview=0x7f07003f;
-        public static final int map=0x7f07004f;
-        public static final int map_detail=0x7f07004e;
+        public static final int location_detail=0x7f070047;
+        public static final int main_container=0x7f070041;
+        public static final int mainview=0x7f070040;
+        public static final int map=0x7f070050;
+        public static final int map_detail=0x7f07004f;
         public static final int middle=0x7f070015;
-        public static final int name_detail=0x7f070045;
+        public static final int name_detail=0x7f070046;
         public static final int never=0x7f07000d;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
+        public static final int progressBar=0x7f07003f;
         public static final int progress_circular=0x7f07001b;
         public static final int progress_horizontal=0x7f07001c;
         public static final int radio=0x7f070032;
-        public static final int resortLocation=0x7f070053;
-        public static final int resortName=0x7f070052;
+        public static final int resortLocation=0x7f070054;
+        public static final int resortName=0x7f070053;
         public static final int satellite=0x7f070002;
         public static final int search_badge=0x7f070035;
         public static final int search_bar=0x7f070034;
@@ -1261,16 +1262,16 @@ containing a value of this type.
         public static final int split_action_bar=0x7f070021;
         public static final int submit_area=0x7f07003c;
         public static final int tabMode=0x7f070006;
-        public static final int tab_1=0x7f070050;
-        public static final int tab_2=0x7f070051;
+        public static final int tab_1=0x7f070051;
+        public static final int tab_2=0x7f070052;
         public static final int terrain=0x7f070003;
         public static final int title=0x7f07002e;
         public static final int top_action_bar=0x7f070023;
-        public static final int txtQuery=0x7f070044;
+        public static final int txtQuery=0x7f070045;
         public static final int up=0x7f070024;
         public static final int useLogo=0x7f070007;
-        public static final int visibility_data=0x7f07004c;
-        public static final int visibility_detail=0x7f07004b;
+        public static final int visibility_data=0x7f07004d;
+        public static final int visibility_detail=0x7f07004c;
         public static final int withText=0x7f070010;
     }
     public static final class integer {
@@ -1323,18 +1324,19 @@ containing a value of this type.
         public static final int abc_popup_menu_item_layout=0x7f030014;
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
-        public static final int activity_app=0x7f030017;
-        public static final int activity_detail_fragment=0x7f030018;
-        public static final int activity_maps_overview=0x7f030019;
-        public static final int activity_search_results=0x7f03001a;
-        public static final int fragment_app=0x7f03001b;
-        public static final int fragment_detail=0x7f03001c;
-        public static final int fragment_list=0x7f03001d;
-        public static final int fragment_maps_overview=0x7f03001e;
-        public static final int fragment_tabs=0x7f03001f;
-        public static final int list_item=0x7f030020;
-        public static final int map_info_window=0x7f030021;
-        public static final int support_simple_spinner_dropdown_item=0x7f030022;
+        public static final int action_progressbar=0x7f030017;
+        public static final int activity_app=0x7f030018;
+        public static final int activity_detail_fragment=0x7f030019;
+        public static final int activity_maps_overview=0x7f03001a;
+        public static final int activity_search_results=0x7f03001b;
+        public static final int fragment_app=0x7f03001c;
+        public static final int fragment_detail=0x7f03001d;
+        public static final int fragment_list=0x7f03001e;
+        public static final int fragment_maps_overview=0x7f03001f;
+        public static final int fragment_tabs=0x7f030020;
+        public static final int list_item=0x7f030021;
+        public static final int map_info_window=0x7f030022;
+        public static final int support_simple_spinner_dropdown_item=0x7f030023;
     }
     public static final class menu {
         public static final int activity_main_actions=0x7f0d0000;
@@ -1385,6 +1387,7 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f080026;
+        public static final int action_refresh=0x7f080033;
         public static final int action_search=0x7f080030;
         public static final int action_settings=0x7f08002a;
         public static final int app_name=0x7f080028;
@@ -1507,11 +1510,10 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0c0085;
+        public static final int AppBaseTheme=0x7f0c0084;
         /**  Application theme. 
          */
         public static final int AppTheme=0x7f0c0083;
-        public static final int MyCustomButton=0x7f0c0084;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0c0063;

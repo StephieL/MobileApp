@@ -3,7 +3,7 @@ package com.example.badeseenberlin;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
- 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -14,6 +14,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
+import android.content.Context;
+import android.widget.Toast;
  
 public class ServiceHandler {
  
@@ -31,7 +34,7 @@ public class ServiceHandler {
      * @method - http request method
      * */
     public String makeServiceCall(String url, int method) {
-        return this.makeServiceCall(url, method, null);
+        return this.makeServiceCall(url, method, null, null);
     }
  
     /**
@@ -41,7 +44,7 @@ public class ServiceHandler {
      * @params - http request params
      * */
     public String makeServiceCall(String url, int method,
-            List<NameValuePair> params) {
+            List<NameValuePair> params, Context context) {
         try {
             // http client
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -76,7 +79,7 @@ public class ServiceHandler {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+			 e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
