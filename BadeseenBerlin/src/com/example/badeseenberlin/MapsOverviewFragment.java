@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -24,49 +26,38 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 
 	private MapView mapView = null;
 	private LatLng berlinCoords = new LatLng(52.5234051, 13.4113999);
-	private View view=null;
 	private View infoview;
 	private GoogleMap googleMap;
-	
-	
+
+
 	@Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-	
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+	}
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		 View view = inflater.inflate(R.layout.fragment_maps_overview, container, false);
-
-	        mapView = (MapView) view.findViewById(R.id.map);
-
-	        // inflat and return the layout
-	        mapView.onCreate(savedInstanceState);
-	        mapView.onResume();// needed to get the map to display immediately
-
-	        MapsInitializer.initialize(getActivity());
-	        googleMap = mapView.getMap();
-	        initilizeMap();
-	        view.setBackgroundResource(R.drawable.bg);
-	        return view;
-	    }
+		View view = inflater.inflate(R.layout.fragment_maps_overview, container, false);
 
 
+		mapView = (MapView) view.findViewById(R.id.map);
 
-//	public void setUpMapIfNeeded() {
-////		if (mapView == null) {
-//			// Try to obtain the map from the SupportMapFragment.
-////			MapsInitializer.initialize(getActivity());
-//			
-////			if (googleMap!=null){
-//				// Check if we were successful in obtaining the map.
-//				
-////			}
-////		}
-//	}
+		// inflat and return the layout
+		mapView.onCreate(savedInstanceState);
+		mapView.onResume();// needed to get the map to display immediately
+
+		MapsInitializer.initialize(getActivity());
+		googleMap = mapView.getMap();
+		initilizeMap();
+
+        view.setBackgroundResource(R.drawable.bg);
+		return view;
+	}
 
 
 	public void initilizeMap() {
+
 //			map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 			googleMap.setOnInfoWindowClickListener(null);
 //			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -113,6 +104,8 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 
 				googleMap.addMarker(marker);
 			}
+
+		
 	}
 
 
@@ -129,54 +122,54 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 	}
 
 	@Override
-	public void onInfoWindowClick(Marker arg0) {
-//		System.out.println("On Window Clicked");
-//		DetailFragment myDetailFragment = new DetailFragment();
-//		AppActivity main = (AppActivity) getActivity();
-//		main.changeFragment(myDetailFragment);
+	public void onInfoWindowClick(Marker marker) {
+		System.out.println("On Window Clicked");
+		DetailFragment myDetailFragment = new DetailFragment();
+		AppActivity main = (AppActivity) getActivity();
+		main.changeFragment(myDetailFragment);
 
 	}
 
 	public void zoomTo(LatLng coords, int level){
 		if (googleMap != null) {
-//			setUpMapIfNeeded();
+			//			setUpMapIfNeeded();
 			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coords, level));
 		}
-		
+
 	}
-	
+
 	@Override
-    public void onResume() {
-        super.onResume();
-        if (null != mapView)
-            mapView.onResume();
-    }
+	public void onResume() {
+		super.onResume();
+		if (null != mapView)
+			mapView.onResume();
+	}
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (null != mapView)
-            mapView.onPause();
-    }
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (null != mapView)
+			mapView.onPause();
+	}
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (null != mapView)
-            mapView.onDestroy();
-    }
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (null != mapView)
+			mapView.onDestroy();
+	}
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (null != mapView)
-            mapView.onSaveInstanceState(outState);
-    }
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (null != mapView)
+			mapView.onSaveInstanceState(outState);
+	}
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        if (null != mapView)
-            mapView.onLowMemory();
-    }
+	@Override
+	public void onLowMemory() {
+		super.onLowMemory();
+		if (null != mapView)
+			mapView.onLowMemory();
+	}
 }

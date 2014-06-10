@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- the theme applied to the application or activity -->
     <style name="CustomActionBarTheme"
@@ -16,8 +16,8 @@
     <style name="MyActionBar"
            parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:background">@drawable/bg</item>
+</style>
 
-    </style>
     
     <style
     name="CustomActionBarTabs"

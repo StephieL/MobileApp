@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -14,7 +15,6 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,17 +30,18 @@ import android.widget.Toast;
 
 public class AppActivity extends Activity implements OnQueryTextListener {
 
-	static boolean isSinglePane;
-	ActionBar acBar;
-	Tab tabList;
-	Tab tabMap;
-	public static ArrayList<Resort> myResorts= new ArrayList<Resort>();
-	private static String url = "http://www.bam.li/Badewasser_latin9.json";
+	private boolean isSinglePane;
+	private ActionBar acBar;
+	private Tab tabList;
+	private Tab tabMap;
 	private ProgressDialog pDialog;
 	private Fragment mFragment;
 	private Fragment lFragment;
+	private Fragment curFrag;
+	private MenuItem refreshMenuItem;
+	public static ArrayList<Resort> myResorts= new ArrayList<Resort>();
+	private static String url = "http://www.bam.li/Badewasser_latin9.json";
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 		new GetResortData().execute();
 		mFragment = Fragment.instantiate(this, MapsOverviewFragment.class.getName());
 		lFragment = Fragment.instantiate(this, MyListFragment.class.getName());
+		curFrag=lFragment;
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,9 +80,9 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 			//	            // location found
 			//	            LocationFound();
 			//	            return true;
-			//	        case R.id.action_refresh:
-			//	            // refresh
-			//	            return true;
+//		case R.id.action_refresh:
+//			new GetResortData().execute();
+//			return true;
 			//	        case R.id.action_help:
 			//	            // help action
 			//	            return true;
@@ -92,17 +94,53 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 		}
 	}
 	public void changeFragment(Fragment fragment) {
+		curFrag=fragment;
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		if (isSinglePane){
-			ft.replace(R.id.main_container, fragment);
+			ft.replace(R.id.main_container, fragment, Constants.DETAIL_FRAG);
 			ft.addToBackStack(null);
+			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			ft.commit();
 		}else{
-			ft.replace(R.id.land_right, fragment);
+			ft.replace(R.id.land_right, fragment, Constants.LANDR_FRAG);
 			ft.addToBackStack(null);
+			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			ft.commit(); 
 		}
+	}
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		// this is your adapter that will be filtered
+		if(isSinglePane){
+			if(acBar.getSelectedNavigationIndex()==0 && !curFrag.isVisible()){
+				if (TextUtils.isEmpty(newText)){
+					MyListFragment.listView.clearTextFilter();
+				}
+				else {
+					MyListFragment.listView.setFilterText(newText.toString());
+				}
+			}else{
+				Context context = getApplicationContext();
+				CharSequence text = "Keine Suche möglich";
+				int duration = Toast.LENGTH_SHORT;
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+			}
+		}else{
+			if (TextUtils.isEmpty(newText)){
+				MyListFragment.listView.clearTextFilter();
+			}
+			else {
+				MyListFragment.listView.setFilterText(newText.toString());
+			}
 
+		}
+		return true;
+	}
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**
@@ -115,7 +153,9 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-
+//			refreshMenuItem.setActionView(R.layout.action_progressbar);
+//            refreshMenuItem.expandActionView();
+            
 			// Showing progress dialog
 			pDialog = new ProgressDialog(AppActivity.this);
 			pDialog.setMessage("Getting Data, please wait...");
@@ -131,10 +171,7 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 			ServiceHandler sh = new ServiceHandler();
 
 			// Making a request to url and getting response
-			String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
-
-			//            Log.d("Response: ", "> " + jsonStr);
-
+			String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET, null ,getApplicationContext());
 			if (jsonStr != null) {
 				try {
 					JSONObject jsonObj = new JSONObject(jsonStr);
@@ -151,7 +188,10 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 
 		@Override
 		protected void onPostExecute(JSONArray resorts) {
-			// Dismiss the progress dialog
+//			refreshMenuItem.collapseActionView();
+//            // remove the progress bar view
+//            refreshMenuItem.setActionView(null);
+         // Dismiss the progress dialog
 			if (pDialog.isShowing())
 				pDialog.dismiss();
 
@@ -201,53 +241,15 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 			}else{
 				isSinglePane = true;
 				acBar = getActionBar();
+				acBar.removeAllTabs();
 				acBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 				acBar.setDisplayShowTitleEnabled(false);
-				tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener<MyListFragment>(AppActivity.this, "List", MyListFragment.class));
+				tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener(lFragment, getApplicationContext()));
 				acBar.addTab(tabList);
-				tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener<MapsOverviewFragment>(AppActivity.this, "List", MapsOverviewFragment.class));
+				tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener(mFragment, getApplicationContext()));
 				acBar.addTab(tabMap);
 			}
 
 		}
 	}
-
-	@Override
-	public boolean onQueryTextChange(String newText) {
-		// this is your adapter that will be filtered
-		if(isSinglePane && acBar!=null){
-			if(acBar.getSelectedNavigationIndex()==0 ){
-				if (TextUtils.isEmpty(newText)){
-					MyListFragment.listView.clearTextFilter();
-				}
-				else {
-					MyListFragment.listView.setFilterText(newText.toString());
-				}
-			}else{
-				Context context = getApplicationContext();
-				CharSequence text = "Keine Suche möglich";
-				int duration = Toast.LENGTH_SHORT;
-
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
-			}
-		}
-		else if (!isSinglePane){
-			if (TextUtils.isEmpty(newText)){
-				MyListFragment.listView.clearTextFilter();
-			}
-			else {
-				MyListFragment.listView.setFilterText(newText.toString());
-			}
-			
-		}
-		return true;
-	}
-	@Override
-	public boolean onQueryTextSubmit(String arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
 }

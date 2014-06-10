@@ -147,7 +147,7 @@ public class DetailFragment extends Fragment {
 	public void initilizeMap() {
 
 		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(resort.getCoordinates(), 12));
-		MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet(resort.getLocation()).alpha(0.75f);
+		MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet(resort.getLocation()).alpha(0.8f);
 		//		zoomTo(resort.getCoordinates(), 8);
 
 

@@ -1,0 +1,35 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- the theme applied to the application or activity -->
+    <style name="CustomActionBarTheme"
+           parent="@style/Theme.AppCompat.Light">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionBarTabStyle">@style/CustomActionBarTabs</item>
+    <item name="actionBarTabStyle">@style/CustomActionBarTabs</item>
+    <item name="android:actionBarTabBarStyle">@style/TabBar</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <!-- general styles for the action bar -->
+    <style name="MyActionBar"
+           parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/bg</item>
+
+
+    
+    <style
+    name="CustomActionBarTabs"
+    parent="@style/Widget.AppCompat.ActionBar.TabView" >
+	
+    <item name="android:background">@drawable/tab_selector</item>
+    <item name="background">@drawable/tab_selector</item>
+</style>
+
+    <style name="TabBar" parent="@style/Widget.AppCompat.ActionBar.TabBar">
+    <item name="android:background">#e6818b91</item>
+</style>
+
+</resources>

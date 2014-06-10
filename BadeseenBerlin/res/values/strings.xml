@@ -11,4 +11,5 @@
     <string name="action_search">"Suche"</string>
     <string name="search_hint">"Suchbegriff eingeben"</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
+    <string name="action_refresh">Aktualisieren</string>
 </resources>
