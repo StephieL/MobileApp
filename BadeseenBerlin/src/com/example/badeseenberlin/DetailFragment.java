@@ -14,9 +14,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 @SuppressLint("NewApi")
@@ -40,6 +44,7 @@ public class DetailFragment extends Fragment {
 	TextView dateDetail;
 	TextView visibilityData;
 	TextView visibilityDetail;
+	ImageView waterQuality;
 	private MapFragment mapFrag;
 	private View view;
 	private MapView mapView;
@@ -92,20 +97,36 @@ public class DetailFragment extends Fragment {
 		visibilityData = (TextView)view.findViewById(R.id.visibility_data);
 		visibilityData.setText(resort.getVisibilityRange());
 
-  	  	int green = Color.parseColor("#66669900");
-  	  	int yellow = Color.parseColor("#66FF8800");
-  	  	int red = Color.parseColor("#66CC0000");
+//  	  	int green = Color.parseColor("#66669900");
+//  	  	int yellow = Color.parseColor("#66FF8800");
+//  	  	int red = Color.parseColor("#66CC0000");
 		
+  	  	view.setBackgroundResource(R.drawable.bg);
+  	  	waterQuality = (ImageView) view.findViewById(R.id.thumbImage);
+  	  	
+  	  	
 
+  	  //create a new Bitmap by decoding the image inside it
+//  	  Bitmap green = BitmapFactory.decodeResource(this.getResources(), R.drawable.thumb_green);
+//  	  Bitmap orange = BitmapFactory.decodeResource(this.getResources(), R.drawable.thumb_orange);
+//  	  Bitmap red = BitmapFactory.decodeResource(this.getResources(), R.drawable.thumb_red);
+  	  //scale the bitmap proportionally
+//  	  green = Bitmap.createScaledBitmap(green, green.getWidth()*2, green.getHeight()*2, false);
+
+  	  	
+  	  	
 		switch (resort.getColor()) {
 		case "gruen.jpg": case "gruen_a.jpg":
-			view.setBackgroundColor(green);
+//			waterQuality.setImageBitmap(green);
+			waterQuality.setImageResource(R.drawable.thumb_green);
 			break;
 		case "gelb.jpg":
-			view.setBackgroundColor(yellow);
+//			waterQuality.setImageBitmap(orange);
+			waterQuality.setImageResource(R.drawable.thumb_orange);
 			break;
 		case "rot.jpg":
-			view.setBackgroundColor(red);
+//			waterQuality.setImageBitmap(red);
+			waterQuality.setImageResource(R.drawable.thumb_red);
 			break;
 		
 		}
@@ -126,22 +147,19 @@ public class DetailFragment extends Fragment {
 	public void initilizeMap() {
 
 		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(resort.getCoordinates(), 12));
-		MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
+		MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet(resort.getLocation()).alpha(0.75f);
 		//		zoomTo(resort.getCoordinates(), 8);
 
 
 		switch(resort.getColor()){
-		case "gruen.jpg":
-			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+		case "gruen.jpg": case "gruen_a.jpg":
+			marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_green));
 			break;
 		case "gelb.jpg":
-			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+			marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange));
 			break;
 		case "rot.jpg":
-			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-			break;
-		case "gruen_a.jpg":
-			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+			marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_red));
 			break;
 		}
 

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
-<fullyQualifiedTypeName name="android.widget.TabHost"/>
-<fullyQualifiedTypeName name="android.app.TabActivity"/>
-<fullyQualifiedTypeName name="android.support.v4.app.FragmentTabHost"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentStatePagerAdapter"/>
 <fullyQualifiedTypeName name="android.widget.TabHost.OnTabChangeListener"/>
 <fullyQualifiedTypeName name="android.support.v7.app.ActionBarActivity"/>
@@ -33,7 +29,6 @@
 <fullyQualifiedTypeName name="org.json.JSONArray"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.os.AsyncTask"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.app.ProgressDialog"/>
 <fullyQualifiedTypeName name="com.example.badeseenberlin.MainActivity.GetResortData"/>
 <fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
@@ -52,7 +47,6 @@
 <fullyQualifiedTypeName name="com.example.badeseenberlin.MainActivity"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.Marker"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.BitmapDescriptorFactory"/>
-<fullyQualifiedTypeName name="com.example.badeseenberlin.R.id"/>
 <fullyQualifiedTypeName name="com.google.android.gms.games.multiplayer.turnbased.TurnBasedMultiplayer.InitiateMatchResult"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.MapFragment"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.MapsInitializer"/>
@@ -60,4 +54,10 @@
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="com.example.badeseenberlin.MapsOverviewFragment"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.GoogleMap"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="com.example.badeseenberlin.R.id"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="com.example.badeseenberlin.Constants"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="com.example.badeseenberlin.R.drawable"/>
 </qualifiedTypeNameHistroy>

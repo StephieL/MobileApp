@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 public class AppActivity extends Activity implements OnQueryTextListener {

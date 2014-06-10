@@ -33,13 +33,15 @@ public class MySimpleAdapter extends SimpleAdapter {
         int h = v.getHeight();
   	  	int w = v.getWidth();
   	  	
+  	  	
   	  	int white = Color.parseColor("#00EDEDED");
-  	  	int green = Color.parseColor("#E6669900");
-  	  	int yellow = Color.parseColor("#E6FF8800");
-  	  	int red = Color.parseColor("#E6CC0000");
+  	  	int green = Color.parseColor("#A6669900");
+  	  	int yellow = Color.parseColor("#A6FF8800");
+  	  	int red = Color.parseColor("#A6CC0000");
   	  	
   	  	ShapeDrawable mDrawable = new ShapeDrawable(new RectShape());
         String color = (String)items.get(position).get(Constants.COLOR);
+        v.setBackgroundResource(R.drawable.bg);
         switch (color) {
         case "gruen.jpg": case "gruen_a.jpg": 
         	  mDrawable.getPaint().setShader(new LinearGradient(0, 0, w, h, white, green, Shader.TileMode.MIRROR));

@@ -1,6 +1,7 @@
 package com.example.badeseenberlin;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -46,6 +47,7 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 	        MapsInitializer.initialize(getActivity());
 	        googleMap = mapView.getMap();
 	        initilizeMap();
+	        view.setBackgroundResource(R.drawable.bg);
 	        return view;
 	    }
 
@@ -71,7 +73,7 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 			zoomTo(berlinCoords, 8);
 			//        	 map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 			for(final Resort resort:AppActivity.myResorts){
-				MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet("Ort: "+resort.getLocation()).alpha(0.75f);
+				MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet(resort.getLocation()).alpha(0.9f);
 				//        		 map.setInfoWindowAdapter(new InfoWindowAdapter() {
 				//        		      
 				//                     // Use default InfoWindow frame
@@ -95,15 +97,17 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 				//          
 				//                     }
 				//                 });
+				
+				
 				switch(resort.getColor()){
 				case "gruen.jpg": case "gruen_a.jpg":
-					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_green));
 					break;
 				case "gelb.jpg":
-					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange));
 					break;
 				case "rot.jpg":
-					marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+					marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_red));
 					break;
 				}
 
