@@ -2,15 +2,14 @@ package com.example.badeseenberlin;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.widget.Toast;
 
 public class TabListener implements ActionBar.TabListener {
 	public Fragment fragment;
     public Context context;
+    
 
     public TabListener(Fragment fragment, Context context) {
                 this.fragment = fragment;
@@ -21,6 +20,9 @@ public class TabListener implements ActionBar.TabListener {
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {
 //                Toast.makeText(context, "Reselected!", Toast.LENGTH_SHORT).show();
+    	if(AppActivity.acBar.getSelectedNavigationIndex()==0){
+    		ft.replace(R.id.main_container, AppActivity.lFragment);
+    	}
 
     }
 

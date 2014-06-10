@@ -2,20 +2,16 @@ package com.example.badeseenberlin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleAdapter;
-import android.graphics.Shader;
 
 public class MySimpleAdapter extends SimpleAdapter {
 	ArrayList<HashMap<String, Object>> items;
@@ -57,8 +53,6 @@ public class MySimpleAdapter extends SimpleAdapter {
 			break;
 		
 		}
-         //or whatever is your default color
-          //if the position exists in that list the you must set the background to BLUE
         return v;
     }
 

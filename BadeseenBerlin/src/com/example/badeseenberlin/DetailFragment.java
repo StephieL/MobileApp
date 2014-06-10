@@ -103,29 +103,15 @@ public class DetailFragment extends Fragment {
 		
   	  	view.setBackgroundResource(R.drawable.bg);
   	  	waterQuality = (ImageView) view.findViewById(R.id.thumbImage);
-  	  	
-  	  	
-
-  	  //create a new Bitmap by decoding the image inside it
-//  	  Bitmap green = BitmapFactory.decodeResource(this.getResources(), R.drawable.thumb_green);
-//  	  Bitmap orange = BitmapFactory.decodeResource(this.getResources(), R.drawable.thumb_orange);
-//  	  Bitmap red = BitmapFactory.decodeResource(this.getResources(), R.drawable.thumb_red);
-  	  //scale the bitmap proportionally
-//  	  green = Bitmap.createScaledBitmap(green, green.getWidth()*2, green.getHeight()*2, false);
-
-  	  	
-  	  	
+  	  	  	  	
 		switch (resort.getColor()) {
 		case "gruen.jpg": case "gruen_a.jpg":
-//			waterQuality.setImageBitmap(green);
 			waterQuality.setImageResource(R.drawable.thumb_green);
 			break;
 		case "gelb.jpg":
-//			waterQuality.setImageBitmap(orange);
 			waterQuality.setImageResource(R.drawable.thumb_orange);
 			break;
 		case "rot.jpg":
-//			waterQuality.setImageBitmap(red);
 			waterQuality.setImageResource(R.drawable.thumb_red);
 			break;
 		

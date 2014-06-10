@@ -4,17 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.ListFragment;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 
 public class MyListFragment extends ListFragment {

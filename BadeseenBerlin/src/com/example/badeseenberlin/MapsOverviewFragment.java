@@ -1,33 +1,35 @@
 package com.example.badeseenberlin;
 
 import android.app.Fragment;
-import android.graphics.Bitmap;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
+import android.location.LocationListener;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.LocationSource;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickListener {
+public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickListener, LocationSource, LocationListener {
 
 	private MapView mapView = null;
 	private LatLng berlinCoords = new LatLng(52.5234051, 13.4113999);
 	private View infoview;
 	private GoogleMap googleMap;
+	private OnLocationChangedListener mListener;
 
 
 	@Override
@@ -49,6 +51,33 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 
 		MapsInitializer.initialize(getActivity());
 		googleMap = mapView.getMap();
+		
+		// Getting LocationManager object from System Service LOCATION_SERVICE
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+
+        if(locationManager!=null){
+        	boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if(gpsIsEnabled)
+            {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 10F, this);
+            }
+            else if(networkIsEnabled)
+            {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L, 10F, this);
+            }
+            else
+            {
+
+        	    Toast.makeText(getActivity(), "GPS disabled", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else
+        {
+            //Show a generic error dialog since LocationManager is null for some reason
+        }
+		
 		initilizeMap();
 
         view.setBackgroundResource(R.drawable.bg);
@@ -58,10 +87,15 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 
 	public void initilizeMap() {
 
+		googleMap.setMyLocationEnabled(true);
+		
+        
+        
+		
 //			map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 			googleMap.setOnInfoWindowClickListener(null);
 //			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-			zoomTo(berlinCoords, 8);
+			zoomTo(berlinCoords, 9);
 			//        	 map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 			for(final Resort resort:AppActivity.myResorts){
 				MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet(resort.getLocation()).alpha(0.9f);
@@ -102,6 +136,7 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 					break;
 				}
 
+				
 				googleMap.addMarker(marker);
 			}
 
@@ -172,4 +207,50 @@ public class MapsOverviewFragment extends Fragment implements OnInfoWindowClickL
 		if (null != mapView)
 			mapView.onLowMemory();
 	}
-}
+
+
+	@Override
+	public void activate(OnLocationChangedListener listener) 
+	{
+	    mListener = listener;
+	}
+
+	@Override
+	public void deactivate() 
+	{
+	    mListener = null;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) 
+	{
+	    if( mListener != null )
+	    {
+	        mListener.onLocationChanged( location );
+
+	        //Move the camera to the user's location once it's available!
+	        googleMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+	    }
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) 
+	{
+	    // TODO Auto-generated method stub
+	    Toast.makeText(getActivity(), "provider disabled", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) 
+	{
+	    // TODO Auto-generated method stub
+	    Toast.makeText(getActivity(), "provider enabled", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) 
+	{
+	    // TODO Auto-generated method stub
+	    Toast.makeText(getActivity(), "status changed", Toast.LENGTH_SHORT).show();
+	}
+	}

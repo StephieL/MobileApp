@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -25,18 +24,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 public class AppActivity extends Activity implements OnQueryTextListener {
 
 	private boolean isSinglePane;
-	private ActionBar acBar;
+	public static ActionBar acBar;
 	private Tab tabList;
 	private Tab tabMap;
 	private ProgressDialog pDialog;
 	private Fragment mFragment;
-	private Fragment lFragment;
+	public static Fragment lFragment;
 	private Fragment curFrag;
 	private MenuItem refreshMenuItem;
 	public static ArrayList<Resort> myResorts= new ArrayList<Resort>();
@@ -243,7 +241,7 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 				acBar = getActionBar();
 				acBar.removeAllTabs();
 				acBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-				acBar.setDisplayShowTitleEnabled(false);
+				acBar.setDisplayShowTitleEnabled(true);
 				tabList = acBar.newTab().setText(R.string.tab1).setTabListener(new TabListener(lFragment, getApplicationContext()));
 				acBar.addTab(tabList);
 				tabMap = acBar.newTab().setText(R.string.tab2).setTabListener(new TabListener(mFragment, getApplicationContext()));
