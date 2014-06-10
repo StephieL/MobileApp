@@ -224,9 +224,6 @@ public class AppActivity extends Activity implements OnQueryTextListener {
 					}
 
 				}
-				else{
-					Toast.makeText(getApplicationContext(), "Couldn't get data - please check your internet connection!", Toast.LENGTH_LONG).show();
-				}
 			}catch (JSONException e) {
 				e.printStackTrace();
 			} 
