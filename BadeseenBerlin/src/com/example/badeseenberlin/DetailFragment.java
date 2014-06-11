@@ -1,27 +1,10 @@
 package com.example.badeseenberlin;
 
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import android.annotation.SuppressLint;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -29,29 +12,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 @SuppressLint("NewApi")
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements LocationSource, LocationListener {
 
-	GoogleMap map;
-	TextView nameDetail;
-	TextView locationDetail;
-	TextView profilDetail;
-	TextView ecoliData;
-	TextView ecoliDetail;
-	TextView enteData;
-	TextView enteDetail;
-	TextView dateDetail;
-	TextView visibilityData;
-	TextView visibilityDetail;
-	ImageView waterQuality;
-	private MapFragment mapFrag;
+	private TextView nameDetail;
+	private TextView locationDetail;
+	private TextView ecoliData;
+	private TextView ecoliDetail;
+	private TextView enteData;
+	private TextView enteDetail;
+	private TextView dateDetail;
+	private TextView visibilityData;
+	private TextView visibilityDetail;
+	private ImageView waterQuality;
 	private View view;
 	private MapView mapView;
 	private Resort resort;
 	private GoogleMap googleMap;
+	private OnLocationChangedListener mListener;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		Bundle bundle = getArguments();
@@ -60,13 +50,34 @@ public class DetailFragment extends Fragment {
 
 		mapView = (MapView) view.findViewById(R.id.map_detail);
 
-		// inflat and return the layout
 		mapView.onCreate(savedInstanceState);
-		mapView.onResume();// needed to get the map to display immediately
+		mapView.onResume();
 
 		MapsInitializer.initialize(getActivity());
 		googleMap = mapView.getMap();
-        initilizeMap();
+		
+		@SuppressWarnings("static-access")
+		LocationManager locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+
+		if(locationManager!=null){
+			boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+			boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+			if(gpsIsEnabled)
+			{
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 10F, this);
+			}
+			else if(networkIsEnabled)
+			{
+				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L, 10F, this);
+			}
+			else
+			{
+				Toast.makeText(getActivity(), "GPS disabled", Toast.LENGTH_SHORT).show();
+			}
+		}
+		
+		initilizeMap();
 		setUpFragment();
 		return view;
 	}
@@ -74,36 +85,32 @@ public class DetailFragment extends Fragment {
 	private void setUpFragment(){
 		nameDetail = (TextView)view.findViewById(R.id.name_detail);
 		nameDetail.setText(resort.getName());
-		
+
 		locationDetail = (TextView)view.findViewById(R.id.location_detail);
 		locationDetail.setText(resort.getProfil()+" ("+resort.getLocation()+")");
-		
+
 		ecoliDetail = (TextView)view.findViewById(R.id.ecoli_detail);
 		ecoliDetail.setText("E.coli : ");		
 		ecoliData = (TextView)view.findViewById(R.id.ecoli_data);
 		ecoliData.setText(resort.getEco());
-		
-		
+
+
 		enteDetail = (TextView)view.findViewById(R.id.ente_detail);
 		enteDetail.setText("Intest. Enterokokken : ");
 		enteData = (TextView)view.findViewById(R.id.ente_data);
 		enteData.setText(resort.getEnte());
-		
+
 		dateDetail = (TextView)view.findViewById(R.id.date_detail);
 		dateDetail.setText("(gemessen am "+resort.getSampleTaking().toString()+")");
-		
+
 		visibilityDetail = (TextView)view.findViewById(R.id.visibility_detail);
 		visibilityDetail.setText("Sichttiefe : ");
 		visibilityData = (TextView)view.findViewById(R.id.visibility_data);
 		visibilityData.setText(resort.getVisibilityRange());
 
-//  	  	int green = Color.parseColor("#66669900");
-//  	  	int yellow = Color.parseColor("#66FF8800");
-//  	  	int red = Color.parseColor("#66CC0000");
-		
-  	  	view.setBackgroundResource(R.drawable.bg);
-  	  	waterQuality = (ImageView) view.findViewById(R.id.thumbImage);
-  	  	  	  	
+		view.setBackgroundResource(R.drawable.bg);
+		waterQuality = (ImageView) view.findViewById(R.id.thumbImage);
+
 		switch (resort.getColor()) {
 		case "gruen.jpg": case "gruen_a.jpg":
 			waterQuality.setImageResource(R.drawable.thumb_green);
@@ -114,28 +121,17 @@ public class DetailFragment extends Fragment {
 		case "rot.jpg":
 			waterQuality.setImageResource(R.drawable.thumb_red);
 			break;
-		
+
 		}
 	}
-	
-//	public void setUpMapIfNeeded() {
-//		if (mapView == null) {
-//			// Try to obtain the map from the SupportMapFragment.
-//			//			MapsInitializer.initialize(getActivity());
-//			googleMap = mapView.getMap();
-//			//			if (googleMap!=null){
-//			// Check if we were successful in obtaining the map.
-//			initilizeMap();
-//			//			}
-//		}
-//	}
 
 	public void initilizeMap() {
 
+		if(MainActivity.isSinglePane){
+			googleMap.setMyLocationEnabled(true);
+		}
 		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(resort.getCoordinates(), 12));
 		MarkerOptions marker = new MarkerOptions().position(resort.getCoordinates()).title(resort.getName()).snippet(resort.getLocation()).alpha(0.8f);
-		//		zoomTo(resort.getCoordinates(), 8);
-
 
 		switch(resort.getColor()){
 		case "gruen.jpg": case "gruen_a.jpg":
@@ -148,72 +144,50 @@ public class DetailFragment extends Fragment {
 			marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_red));
 			break;
 		}
-
 		googleMap.addMarker(marker);
 	}
 
 
-@Override
-public boolean onOptionsItemSelected(MenuItem item) {
-	// Handle action bar item clicks here. The action bar will
-	// automatically handle clicks on the Home/Up button, so long
-	// as you specify a parent activity in AndroidManifest.xml.
-	int id = item.getItemId();
-	if (id == R.id.action_settings) {
-		return true;
-	}
-	return super.onOptionsItemSelected(item);
-}
-
-//public void onInfoWindowClick(Marker arg0) {
-////	System.out.println("On Window Clicked");
-////	DetailFragment myDetailFragment = new DetailFragment();
-////	AppActivity main = (AppActivity) getActivity();
-////	main.changeFragment(myDetailFragment);
-//
-//}
-public void zoomTo(LatLng coords, int level){
-	if (googleMap != null) {
-		//		setUpMapIfNeeded();
-		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coords, level));
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
-}
-//@Override
-//public void onResume() {
-//	super.onResume();
-//	if (null != mapView)
-//		mapView.onResume();
-//}
-//
-//@Override
-//public void onPause() {
-//	super.onPause();
-//	if (null != mapView)
-//		mapView.onPause();
-//}
-//
-//@Override
-//public void onDestroy() {
-//	super.onDestroy();
-//	if (null != mapView)
-//		mapView.onDestroy();
-//}
-//
-//@Override
-//public void onSaveInstanceState(Bundle outState) {
-//	super.onSaveInstanceState(outState);
-//	if (null != mapView)
-//		mapView.onSaveInstanceState(outState);
-//}
-//
-//@Override
-//public void onLowMemory() {
-//	super.onLowMemory();
-//	if (null != mapView)
-//		mapView.onLowMemory();
-//}
-//public void updateDetail(String detail) {
-//	nameDetail.setText(detail);
-//}
+	@Override
+	public void activate(OnLocationChangedListener listener) {
+		mListener = listener;
+	}
+
+	@Override
+	public void deactivate() {
+		mListener = null;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		if( mListener != null )
+		{
+			mListener.onLocationChanged( location );
+			googleMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+		}
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(getActivity(), "provider disabled", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(getActivity(), "provider enabled", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		Toast.makeText(getActivity(), "status changed", Toast.LENGTH_SHORT).show();
+	}
 }

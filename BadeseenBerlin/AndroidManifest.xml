@@ -32,7 +32,7 @@
             android:value="AIzaSyBHAn-sRvDFj3jziueVhaITu1fJ6tpmCSc" />
 
         <activity
-            android:name="com.example.badeseenberlin.AppActivity"
+            android:name="com.example.badeseenberlin.MainActivity"
             android:label="@string/app_name"
             >
             <intent-filter>

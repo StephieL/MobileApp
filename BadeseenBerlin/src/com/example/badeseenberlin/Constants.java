@@ -17,6 +17,7 @@ public class Constants {
 	protected static final String RSS = "rss_name";
 	protected static final String COORDS = "coordinates";
 	protected static final String COLOR = "farbe";
+	
 	protected static final String DETAIL_FRAG = "detail fragment";
 	protected static final String LANDR_FRAG = "land right fragment";
 

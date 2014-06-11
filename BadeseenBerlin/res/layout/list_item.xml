@@ -2,33 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:descendantFocusability="blocksDescendants">
-    
-    <!-- Name Label -->
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+
     <TextView
-         android:id="@+id/resortName"
+        android:id="@+id/resortName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
         android:textColor="#2e2e2e"
         android:textSize="16sp"
-        android:textStyle="bold" 
-        android:layout_marginLeft="8dp"
-		android:layout_marginRight="8dp">
+        android:textStyle="bold" >
     </TextView>
-      
- 
-    <!-- Bezirk label -->
+
     <TextView
         android:id="@+id/resortLocation"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"       
-        android:textSize="12sp"
-        android:textColor="#4f4f4f" 
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-		android:layout_marginRight="8dp">
-     </TextView> 
+        android:layout_marginRight="8dp"
+        android:textColor="#4f4f4f"
+        android:textSize="12sp" >
+    </TextView>
 
 </LinearLayout>
